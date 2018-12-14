@@ -121,7 +121,7 @@ class App extends React.Component<TestProps, TestState> {
             value={this.state.input}
             onChange={this.handleChange}
             autoFocus />
-          <div className="display-container">
+          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
             <div className="pair">
               <div className="pair-key"><small>Direct link:&nbsp;</small></div>
               <div className="pair-value">
@@ -135,7 +135,7 @@ class App extends React.Component<TestProps, TestState> {
           </div>
         </header>
         <section className="App-body">
-          <div className="display-container">
+          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
             <p className="description">interpreted as</p>
             { listItems }
           </div>
