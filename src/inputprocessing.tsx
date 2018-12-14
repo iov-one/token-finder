@@ -106,58 +106,60 @@ const accountBasedSlip10HdCoins: ReadonlyArray<{
 ]
 
 export async function processInput(input: string): Promise<ReadonlyArray<Display>> {
-  const properties = interprete(input);
+  const normalizedInput = input.trim();
+
+  const properties = interprete(normalizedInput);
 
   const out = new Array<Display>();
 
   if (properties.has(InputProperties.IovAddressTestnet)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsAddressDisplay(input, network));
+      out.push(makeBnsAddressDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.BnsUsername)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsNameDisplay(input, network));
+      out.push(makeBnsNameDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.EnglishMnemonic)) {
-    out.push(makeBip39MnemonicDisplay(input));
+    out.push(makeBip39MnemonicDisplay(normalizedInput));
 
-    out.push(await makeSimpleAddressDisplay(input));
+    out.push(await makeSimpleAddressDisplay(normalizedInput));
     for (const hdCoin of accountBasedSlip10HdCoins) {
-      out.push(await makeHdWalletDisplay(input, hdCoin.number, hdCoin.name, hdCoin.codec));
+      out.push(await makeHdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.codec));
     }
 
     if (properties.has(InputProperties.EnglishMnemonic12Words)) {
-      out.push(await makeLiskLikePassphraseDisplay(input));
+      out.push(await makeLiskLikePassphraseDisplay(normalizedInput));
     }
   }
 
   if (properties.has(InputProperties.Bech32)) {
-    out.push(makeBech32Display(input));
+    out.push(makeBech32Display(normalizedInput));
   }
 
   if (properties.has(InputProperties.Hex)) {
     if (properties.has(InputProperties.ByteLength20)) {
-      out.push(makeWeaveAddressDisplay(input));
+      out.push(makeWeaveAddressDisplay(normalizedInput));
     }
     if (properties.has(InputProperties.ByteLength32)) {
-      out.push(makeEd25519PubkeyDisplay(input));
+      out.push(makeEd25519PubkeyDisplay(normalizedInput));
     }
-    out.push(makeHexDisplay(input));
+    out.push(makeHexDisplay(normalizedInput));
   }
 
   if (properties.has(InputProperties.LiskAddress)) {
     for (const network of liskNetworks) {
-      out.push(makeLiskAddressDisplay(input, network));
+      out.push(makeLiskAddressDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.RiseAddress)) {
     for (const network of riseNetworks) {
-      out.push(makeRiseAddressDisplay(input, network));
+      out.push(makeRiseAddressDisplay(normalizedInput, network));
     }
   }
 

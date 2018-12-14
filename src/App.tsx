@@ -128,7 +128,7 @@ class App extends React.Component<TestProps, TestState> {
                 <input type="text"
                   className="direct-link"
                   readOnly={true}
-                  value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input)}`}
+                  value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input.trim())}`}
                   />
               </div>
             </div>
