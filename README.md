@@ -22,6 +22,7 @@ Type in example data:
 * Hex data: aabbccdd
 * Lisk address: 6076671634347365051L
 * Weave address: f6cade229408c93a2a8d181d62efce46ff60d210
+* Ed25519 pubkey: 0fd9dcc5c02ea0de495987409a6acd8080a712e91bdb8cb6dc20203d6f81877a
 * BNS name: alice
 * Mnemonic: sense turn maze boost short wagon habit aisle more final social wild spice rookie nominee
 * Lisk passphrase: gaze grape mechanic card explain total sphere foam dwarf pact weekend hollow
