@@ -1,32 +1,95 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+  padding: 0 20px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 2rem 0 0 0;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.maininput {
   font-size: calc(10px + 2vmin);
-  color: white;
+  max-width: 700px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.333rem;
 }
 
-.App-link {
-  color: #61dafb;
+.display-container {
+  margin: 0 auto;
+  max-width: 540px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.description {
+  color: #333;
+}
+
+.display {
+  background-color: #EDF2F1;
+  border: 1px solid gray;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 3px;
+}
+
+.display-title {
+  font-weight: bold;
+  font-size: 1.0em;
+  margin-bottom: 0.5em;
+}
+
+.display-data {
+  white-space: pre-wrap;
+  line-height: 1.5em;
+}
+
+.pair {
+  display: flex;
+  align-items: baseline;
+}
+
+.pair-key {
+  flex-grow: 0;
+}
+
+.pair-value {
+  flex-grow: 1;
+}
+
+.pair-value pre {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.pair-value input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-warning {
+  display: inline-block;
+  background-color: #f07f4e;
+  border-color: #943c0c;
+  border-radius: 3px;
+  color: black;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #cc0000;
+}
+
+.inactive {
+  opacity: 0.75;
+  font-style: italic;
+}
+
+.mono {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
