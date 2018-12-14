@@ -4,7 +4,7 @@
   "private": true,
   "author": "IOV SAS <admin@iov.one>",
   "license": "Apache-2.0",
-  "homepage" : "https://iov-one.github.io/token-finder/",
+  "homepage": "https://iov-one.github.io/token-finder/",
   "dependencies": {
     "@iov/bns": "^0.10.1",
     "@iov/crypto": "^0.10.1",
@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,5 +39,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
