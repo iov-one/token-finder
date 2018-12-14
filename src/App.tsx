@@ -117,7 +117,7 @@ class App extends React.Component<TestProps, TestState> {
       <div className="App">
         <header className="App-header">
           <input className="maininput" type="text"
-            placeholder="Insert address as hex or bech32"
+            placeholder="hex address, bech32 address, pubkey, mnemonic …"
             value={this.state.input}
             onChange={this.handleChange}
             autoFocus />
