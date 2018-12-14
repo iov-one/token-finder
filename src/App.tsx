@@ -127,7 +127,7 @@ class App extends React.Component<TestProps, TestState> {
               <div className="pair-value">
                 <input type="text"
                   className="direct-link"
-                  readOnly={true} disabled={true}
+                  readOnly={true}
                   value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input)}`}
                   />
               </div>
