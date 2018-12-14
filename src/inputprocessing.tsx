@@ -16,7 +16,8 @@ import {
   makeRiseAddressDisplay,
   makeBip39MnemonicDisplay,
   makeLiskLikePassphraseDisplay,
-  makeHdWalletDisplay
+  makeHdWalletDisplay,
+  makeSimpleAddressDisplay
 } from './displays';
 
 export interface StaticDisplay {
@@ -124,6 +125,7 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
   if (properties.has(InputProperties.EnglishMnemonic)) {
     out.push(makeBip39MnemonicDisplay(input));
 
+    out.push(await makeSimpleAddressDisplay(input));
     for (const hdCoin of accountBasedSlip10HdCoins) {
       out.push(await makeHdWalletDisplay(input, hdCoin.number, hdCoin.name, hdCoin.codec));
     }
