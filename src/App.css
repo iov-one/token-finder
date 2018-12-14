@@ -59,7 +59,7 @@
   flex-grow: 1;
 }
 
-.pair-value pre {
+.pair-value.data {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;

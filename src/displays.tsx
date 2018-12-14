@@ -153,11 +153,11 @@ export function makeHexDisplay(input: string): StaticDisplay {
       Length: {inputData.length} bytes<br />
       <div className="pair">
         <div className="pair-key">Lower:&nbsp;</div>
-        <div className="pair-value"><pre>{input.toLowerCase()}</pre></div>
+        <div className="pair-value data">{input.toLowerCase()}</div>
       </div>
       <div className="pair">
         <div className="pair-key">Upper:&nbsp;</div>
-        <div className="pair-value"><pre>{input.toUpperCase()}</pre></div>
+        <div className="pair-value data">{input.toUpperCase()}</div>
       </div>
     </div>,
   };
@@ -317,7 +317,7 @@ export function makeBip39MnemonicDisplay(input: string): StaticDisplay {
       ENT: {entropy.length*8}<br />
       <div className="pair">
         <div className="pair-key">Entropy:&nbsp;</div>
-        <div className="pair-value"><pre>{toHex(entropy)}</pre></div>
+        <div className="pair-value data">{toHex(entropy)}</div>
       </div>
     </div>,
   };
