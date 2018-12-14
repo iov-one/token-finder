@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "44e604d4afa77e8debfb",
-    "url": "/token-finder/static/css/main.7f93594d.chunk.css"
+    "revision": "754c4bde8b00531b22f5",
+    "url": "/token-finder/static/css/main.ebe9b813.chunk.css"
   },
   {
-    "revision": "44e604d4afa77e8debfb",
-    "url": "/token-finder/static/js/main.44e604d4.chunk.js"
+    "revision": "754c4bde8b00531b22f5",
+    "url": "/token-finder/static/js/main.754c4bde.chunk.js"
   },
   {
     "revision": "0a9d6abe7b55f455ce68",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/token-finder/static/js/runtime~main.04a5ef56.js"
   },
   {
-    "revision": "4dc7040548fa68bf2aeb0f4a397ba2ed",
+    "revision": "54eda4ed924a7c7235b53d04e39d0644",
     "url": "/token-finder/index.html"
   }
 ];
