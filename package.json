@@ -4,6 +4,7 @@
   "private": true,
   "author": "IOV SAS <admin@iov.one>",
   "license": "Apache-2.0",
+  "homepage" : "https://iov-one.github.io/token-finder/",
   "dependencies": {
     "@iov/bns": "^0.10.1",
     "@iov/crypto": "^0.10.1",
