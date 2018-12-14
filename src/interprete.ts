@@ -19,6 +19,10 @@ export enum InputProperties {
 }
 
 export function interprete(input: string): ReadonlySet<InputProperties> {
+  if (input.length === 0) {
+    return new Set();
+  }
+
   const out = new Set();
 
   try {
