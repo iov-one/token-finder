@@ -51,14 +51,6 @@ const iovTestnets: ReadonlyArray<NetworkSettings> = [
     name: "Yaknet (bcpd)",
     url: "https://bov.yaknet.iov.one",
   },
-  {
-    name: "Xerusnet (bnsd)",
-    url: "https://bns.xerusnet.iov.one",
-  },
-  {
-    name: "Xerusnet (bcpd)",
-    url: "https://bov.xerusnet.iov.one",
-  }
 ];
 
 const liskNetworks: ReadonlyArray<NetworkSettings> = [
