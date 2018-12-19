@@ -51,7 +51,7 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
     const mnemonic = new EnglishMnemonic(input);
     out.add(InputProperties.EnglishMnemonic);
     const entropy = Bip39.decode(mnemonic);
-    if (entropy.length*8 === 128) {
+    if (entropy.length * 8 === 128) {
       out.add(InputProperties.EnglishMnemonic12Words);
     }
   } catch {}

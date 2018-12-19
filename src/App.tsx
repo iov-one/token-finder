@@ -1,8 +1,8 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import './App.css';
-import { isInteractiveDisplay, processInput, StaticDisplay } from './inputprocessing';
+import "./App.css";
+import { isInteractiveDisplay, processInput, StaticDisplay } from "./inputprocessing";
 
 interface TestProps {
   readonly location: any;
@@ -19,10 +19,10 @@ class App extends React.Component<TestProps, TestState> {
   // tslint:disable-next-line:readonly-array
   private readonly timeouts: NodeJS.Timeout[] = [];
 
-  constructor (props: TestProps){
+  constructor(props: TestProps) {
     super(props);
     this.state = {
-      input: '',
+      input: "",
       display: [],
     };
 
@@ -42,32 +42,40 @@ class App extends React.Component<TestProps, TestState> {
   }
 
   public render(): JSX.Element {
-    const listItems = this.state ?
-      this.state.display.map((display) =>
-        <div key={display.id} className="display">
-          <div className="display-title">{display.interpretedAs}</div>
-          <div className="display-data">{display.data}</div>
-        </div>
-        )
+    const listItems = this.state
+      ? this.state.display.map(display => (
+          <div key={display.id} className="display">
+            <div className="display-title">{display.interpretedAs}</div>
+            <div className="display-data">{display.data}</div>
+          </div>
+        ))
       : [];
 
     return (
       <div className="App">
         <header className="App-header">
-          <input className="maininput" type="text"
+          <input
+            className="maininput"
+            type="text"
             placeholder="hex address, bech32 address, pubkey, mnemonic …"
             value={this.state.input}
             onChange={this.handleChange}
-            autoFocus />
+            autoFocus
+          />
           <div className={listItems.length === 0 ? "hidden" : "display-container"}>
             <div className="pair">
-              <div className="pair-key"><small>Direct link:&nbsp;</small></div>
+              <div className="pair-key">
+                <small>Direct link:&nbsp;</small>
+              </div>
               <div className="pair-value">
-                <input type="text"
+                <input
+                  type="text"
                   className="direct-link"
                   readOnly={true}
-                  value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input.trim())}`}
-                  />
+                  value={`${window.location.href.replace(/#.*/, "")}#${encodeURIComponent(
+                    this.state.input.trim(),
+                  )}`}
+                />
               </div>
             </div>
           </div>
@@ -75,7 +83,7 @@ class App extends React.Component<TestProps, TestState> {
         <section className="App-body">
           <div className={listItems.length === 0 ? "hidden" : "display-container"}>
             <p className="description">interpreted as</p>
-            { listItems }
+            {listItems}
           </div>
         </section>
       </div>
@@ -83,8 +91,8 @@ class App extends React.Component<TestProps, TestState> {
   }
 
   private handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const newValue = e.target.value
-    console.log('handle change called', newValue);
+    const newValue = e.target.value;
+    console.log("handle change called", newValue);
     this.handleQuery(newValue);
   }
 
@@ -108,7 +116,7 @@ class App extends React.Component<TestProps, TestState> {
           interpretedAs: display.interpretedAs,
           priority: display.priority,
           data: <div>Loading ...</div>,
-        }
+        };
       } else {
         return display;
       }
@@ -120,7 +128,8 @@ class App extends React.Component<TestProps, TestState> {
 
     for (const interactiveDisplay of out.filter(isInteractiveDisplay)) {
       const job = () => {
-        interactiveDisplay.getData()
+        interactiveDisplay
+          .getData()
           .then(data => {
             const rendered = interactiveDisplay.renderData(data);
             return rendered;

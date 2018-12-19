@@ -16,7 +16,7 @@ import {
   makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
   NetworkSettings,
-} from './displays';
+} from "./displays";
 import { InputProperties, interprete } from "./interprete";
 
 export interface StaticDisplay {
@@ -37,8 +37,10 @@ export interface InteractiveDisplay {
 export type Display = StaticDisplay | InteractiveDisplay;
 
 export function isInteractiveDisplay(display: Display): display is InteractiveDisplay {
-  return typeof (display as InteractiveDisplay).getData === "function"
-    && typeof (display as InteractiveDisplay).renderData === "function";
+  return (
+    typeof (display as InteractiveDisplay).getData === "function" &&
+    typeof (display as InteractiveDisplay).renderData === "function"
+  );
 }
 
 const iovTestnets: ReadonlyArray<NetworkSettings> = [
@@ -75,9 +77,9 @@ const riseNetworks: ReadonlyArray<NetworkSettings> = [
 ];
 
 const accountBasedSlip10HdCoins: ReadonlyArray<{
-  readonly name: string,
-  readonly number: number,
-  readonly codec: TxCodec,
+  readonly name: string;
+  readonly number: number;
+  readonly codec: TxCodec;
 }> = [
   // {
   //   name: "IOV",
@@ -94,7 +96,7 @@ const accountBasedSlip10HdCoins: ReadonlyArray<{
     number: 1120,
     codec: riseCodec,
   },
-]
+];
 
 export async function processInput(input: string): Promise<ReadonlyArray<Display>> {
   const normalizedInput = input.trim();

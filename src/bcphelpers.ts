@@ -11,8 +11,8 @@ export function printAmount(amount: Amount): string {
   const fractional = leftPad(
     amount.quantity.slice(-amount.fractionalDigits) || "0",
     amount.fractionalDigits,
-    "0"
+    "0",
   );
-  const trimmedFractional = fractional.replace(/0+$/, '') || "0";
+  const trimmedFractional = fractional.replace(/0+$/, "") || "0";
   return `${whole}.${trimmedFractional}${narrowNoBreakSpace}${amount.tokenTicker}`;
 }
