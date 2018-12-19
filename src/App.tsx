@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { processInput, StaticDisplay, isInteractiveDisplay } from './inputprocessing';
 import './App.css';
+import { isInteractiveDisplay, processInput, StaticDisplay } from './inputprocessing';
 
 interface TestProps {
   readonly location: any;
@@ -16,7 +16,7 @@ interface TestState {
 }
 
 class App extends React.Component<TestProps, TestState> {
-
+  // tslint:disable-next-line:readonly-array
   private readonly timeouts: NodeJS.Timeout[] = [];
 
   constructor (props: TestProps){
@@ -34,28 +34,71 @@ class App extends React.Component<TestProps, TestState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
+  public componentDidMount(): void {
     const hashQuery: string = this.props.location.hash.slice(1);
     const query = decodeURIComponent(hashQuery);
     console.log("Initial query", query);
     this.handleQuery(query);
   }
 
-  updateDisplay(updatedDisplay: StaticDisplay) {
-    const list = this.state.display.map(x => x);
-    const index = list.findIndex(i => i.id == updatedDisplay.id);
-    list[index] = updatedDisplay;
-    this.setState({
-      display: list,
-    })
+  public render(): JSX.Element {
+    const listItems = this.state ?
+      this.state.display.map((display) =>
+        <div key={display.id} className="display">
+          <div className="display-title">{display.interpretedAs}</div>
+          <div className="display-data">{display.data}</div>
+        </div>
+        )
+      : [];
+
+    return (
+      <div className="App">
+        <header className="App-header">
+          <input className="maininput" type="text"
+            placeholder="hex address, bech32 address, pubkey, mnemonic …"
+            value={this.state.input}
+            onChange={this.handleChange}
+            autoFocus />
+          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
+            <div className="pair">
+              <div className="pair-key"><small>Direct link:&nbsp;</small></div>
+              <div className="pair-value">
+                <input type="text"
+                  className="direct-link"
+                  readOnly={true}
+                  value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input.trim())}`}
+                  />
+              </div>
+            </div>
+          </div>
+        </header>
+        <section className="App-body">
+          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
+            <p className="description">interpreted as</p>
+            { listItems }
+          </div>
+        </section>
+      </div>
+    );
   }
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+
+  private handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const newValue = e.target.value
     console.log('handle change called', newValue);
     this.handleQuery(newValue);
   }
 
-  async handleQuery(newValue: string) {
+  private updateDisplay(updatedDisplay: StaticDisplay): void {
+    const list = this.state.display.map(x => x);
+    const index = list.findIndex(i => i.id === updatedDisplay.id);
+    // tslint:disable-next-line:no-object-mutation
+    list[index] = updatedDisplay;
+    this.setState({
+      display: list,
+    });
+  }
+
+  private async handleQuery(newValue: string): Promise<void> {
     const out = await processInput(newValue);
 
     const allStatic = out.map(display => {
@@ -101,47 +144,6 @@ class App extends React.Component<TestProps, TestState> {
       input: newValue,
       display: allStatic,
     });
-  }
-  render() {
-
-    const listItems = this.state ?
-      this.state.display.map((display) =>
-        <div key={display.id} className="display">
-          <div className="display-title">{display.interpretedAs}</div>
-          <div className="display-data">{display.data}</div>
-        </div>
-        )
-      : [];
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <input className="maininput" type="text"
-            placeholder="hex address, bech32 address, pubkey, mnemonic …"
-            value={this.state.input}
-            onChange={this.handleChange}
-            autoFocus />
-          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
-            <div className="pair">
-              <div className="pair-key"><small>Direct link:&nbsp;</small></div>
-              <div className="pair-value">
-                <input type="text"
-                  className="direct-link"
-                  readOnly={true}
-                  value={`${window.location.href.replace(/#.*/, '')}#${encodeURIComponent(this.state.input.trim())}`}
-                  />
-              </div>
-            </div>
-          </div>
-        </header>
-        <section className="App-body">
-          <div className={listItems.length === 0 ? "hidden" : "display-container"}>
-            <p className="description">interpreted as</p>
-            { listItems }
-          </div>
-        </section>
-      </div>
-    );
   }
 }
 

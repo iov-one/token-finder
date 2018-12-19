@@ -1,24 +1,23 @@
 import { TxCodec } from "@iov/bcp-types";
-import { bnsCodec } from "@iov/bns";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
 
-import { interprete, InputProperties } from "./interprete";
 import {
-  makeBnsAddressDisplay,
-  NetworkSettings,
   makeBech32Display,
-  makeHexDisplay,
-  makeWeaveAddressDisplay,
+  makeBip39MnemonicDisplay,
+  makeBnsAddressDisplay,
   makeBnsNameDisplay,
   makeEd25519PubkeyDisplay,
-  makeLiskAddressDisplay,
-  makeRiseAddressDisplay,
-  makeBip39MnemonicDisplay,
-  makeLiskLikePassphraseDisplay,
   makeHdWalletDisplay,
-  makeSimpleAddressDisplay
+  makeHexDisplay,
+  makeLiskAddressDisplay,
+  makeLiskLikePassphraseDisplay,
+  makeRiseAddressDisplay,
+  makeSimpleAddressDisplay,
+  makeWeaveAddressDisplay,
+  NetworkSettings,
 } from './displays';
+import { InputProperties, interprete } from "./interprete";
 
 export interface StaticDisplay {
   readonly id: string;

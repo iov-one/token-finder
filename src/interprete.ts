@@ -1,7 +1,7 @@
+import { Bip39, EnglishMnemonic } from "@iov/crypto";
 import { Bech32, Encoding } from "@iov/encoding";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
-import { EnglishMnemonic, Bip39 } from "@iov/crypto";
 
 export enum InputProperties {
   Hex,

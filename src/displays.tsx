@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { BnsConnection, bnsCodec } from "@iov/bns";
-import { Address, BcpQueryEnvelope, BcpAccount, BcpAccountQuery, BcpConnection, TxCodec } from "@iov/bcp-types";
+import { Algorithm, PublicKeyBundle, PublicKeyBytes } from '@iov/base-types';
+import { Address, BcpAccount, BcpAccountQuery, BcpConnection, BcpQueryEnvelope, TxCodec } from "@iov/bcp-types";
+import { bnsCodec, BnsConnection } from "@iov/bns";
+import { Bip39, EnglishMnemonic, Slip10RawIndex } from '@iov/crypto';
 import { Bech32, Encoding } from "@iov/encoding";
 import { Ed25519HdWallet, HdPaths } from "@iov/keycontrol";
 import { liskCodec, LiskConnection, passphraseToKeypair } from "@iov/lisk";
@@ -10,8 +12,6 @@ import { riseCodec, RiseConnection } from "@iov/rise";
 
 import { printAmount } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
-import { PublicKeyBundle, Algorithm, PublicKeyBytes } from '@iov/base-types';
-import { EnglishMnemonic, Bip39, Slip10RawIndex } from '@iov/crypto';
 
 const { toHex } = Encoding;
 
@@ -203,10 +203,11 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
 export async function makeSimpleAddressDisplay(input: string): Promise<StaticDisplay> {
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
-  const addresses: {
-    path: string,
-    address: Address,
-  }[] = [];
+  // tslint:disable-next-line:readonly-array
+  const addresses: Array<{
+    readonly path: string,
+    readonly address: Address,
+  }> = [];
   for (let index = 0; index < 5; ++index) {
     const path = HdPaths.simpleAddress(index);
     const pubkey = (await wallet.createIdentity(path)).pubkey;
@@ -234,12 +235,17 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
 export async function makeHdWalletDisplay(input: string, coinNumber: number, coinName: string, codec: TxCodec): Promise<StaticDisplay> {
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
-  const addresses: {
-    path: string,
-    address: Address,
-  }[] = [];
+  // tslint:disable-next-line:readonly-array
+  const addresses: Array<{
+    readonly path: string,
+    readonly address: Address,
+  }> = [];
   for (let a = 0; a < 5; ++a) {
-    const path = [Slip10RawIndex.hardened(44), Slip10RawIndex.hardened(coinNumber), Slip10RawIndex.hardened(a)];
+    const path: ReadonlyArray<Slip10RawIndex> = [
+      Slip10RawIndex.hardened(44),
+      Slip10RawIndex.hardened(coinNumber),
+      Slip10RawIndex.hardened(a),
+    ];
     const pubkey = (await wallet.createIdentity(path)).pubkey;
     const address = codec.keyToAddress(pubkey);
     addresses.push({
