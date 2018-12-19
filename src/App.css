@@ -20,7 +20,7 @@
 
 .display-container {
   margin: 0 auto;
-  max-width: 540px;
+  max-width: 500px;
 }
 
 .description {
@@ -44,6 +44,25 @@
 .display-data {
   white-space: pre-wrap;
   line-height: 1.5em;
+}
+
+.display-data table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.display-data table td {
+  vertical-align: top;
+  word-wrap: break-word;
+}
+
+.display-data table td:first-child {
+  padding-right: 0.6em;
+  white-space: nowrap;
+}
+
+.display-data table .breakall {
+  word-break: break-all;
 }
 
 .pair {

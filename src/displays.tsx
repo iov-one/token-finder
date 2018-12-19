@@ -40,14 +40,26 @@ function makeBnsAccountDisplay(id: string, priority: number, interpretedAs: stri
       if (response.data.length > 0) {
         const { address, pubkey, balance, name } = response.data[0];
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
-        data = <div>
-          Address: <Link to={"#" + address}>{address}</Link><br />
-          Pubkey: { hexPubkey
-            ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
-            : <span className="inactive">not available</span> }<br />
-          Name: {name ? <Link to={"#" + name}>{name}</Link> : "<none>"}<br />
-          Balance: {balance.map(printAmount).join(", ")}
-        </div>
+        data = <table>
+          <tr>
+            <td>Address</td>
+            <td><Link to={"#" + address}>{address}</Link></td>
+          </tr>
+          <tr>
+            <td>Pubkey</td>
+            <td className="breakall">{ hexPubkey
+              ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
+              : <span className="inactive">not available</span> }</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{ name ? <Link to={"#" + name}>{name}</Link> : "<none>" }</td>
+          </tr>
+          <tr>
+            <td>Balance</td>
+            <td>{balance.map(printAmount).join(", ")}</td>
+          </tr>
+        </table>
       } else {
         data = <span className="inactive">Account not found</span>;
       }
@@ -91,13 +103,22 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
       if (response.data.length > 0) {
         const { address, pubkey, balance, name } = response.data[0];
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
-        data = <div>
-          Address: <Link to={"#" + address}>{address}</Link><br />
-          Pubkey: { hexPubkey
-            ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
-            : <span className="inactive">not available</span> }<br />
-          Balance: {balance.map(printAmount).join(", ")}
-        </div>
+        data = <table>
+          <tr>
+            <td>Address</td>
+            <td><Link to={"#" + address}>{address}</Link></td>
+          </tr>
+          <tr>
+            <td>Pubkey</td>
+            <td className="breakall">{ hexPubkey
+              ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
+              : <span className="inactive">not available</span> }</td>
+          </tr>
+          <tr>
+            <td>Balance</td>
+            <td>{balance.map(printAmount).join(", ")}</td>
+          </tr>
+        </table>
       } else {
         data = <span className="inactive">Account not found</span>;
       }
@@ -127,13 +148,22 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
       if (response.data.length > 0) {
         const { address, pubkey, balance, name } = response.data[0];
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
-        data = <div>
-          Address: <Link to={"#" + address}>{address}</Link><br />
-          Pubkey: { hexPubkey
-            ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
-            : <span className="inactive">not available</span> }<br />
-          Balance: {balance.map(printAmount).join(", ")}
-        </div>
+        data = <table>
+          <tr>
+            <td>Address</td>
+            <td><Link to={"#" + address}>{address}</Link></td>
+          </tr>
+          <tr>
+            <td>Pubkey</td>
+            <td className="breakall">{ hexPubkey
+              ? <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
+              : <span className="inactive">not available</span> }</td>
+          </tr>
+          <tr>
+            <td>Balance</td>
+            <td>{balance.map(printAmount).join(", ")}</td>
+          </tr>
+        </table>
       } else {
         data = <span className="inactive">Account not found</span>;
       }
