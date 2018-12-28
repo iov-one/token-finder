@@ -1,4 +1,5 @@
 import { TxCodec } from "@iov/bcp-types";
+import { bnsCodec } from "@iov/bns";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
 
@@ -81,11 +82,11 @@ const accountBasedSlip10HdCoins: ReadonlyArray<{
   readonly number: number;
   readonly codec: TxCodec;
 }> = [
-  // {
-  //   name: "IOV",
-  //   number: 234,
-  //   codec: bnsCodec,
-  // },
+  {
+    name: "IOV",
+    number: 234,
+    codec: bnsCodec,
+  },
   {
     name: "Lisk",
     number: 134,
