@@ -303,6 +303,30 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   };
 }
 
+function makeAddressesDisplay(
+  id: string,
+  interpretedAs: string,
+  addresses: Array<{
+    readonly path: string;
+    readonly pubkey: PublicKeyBundle;
+    readonly address: Address;
+  }>,
+): StaticDisplay {
+  const rows = addresses.map(a => (
+    <div key={a.path}>
+      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, 21)}</Link>{" "}
+      ({a.pubkey.algo}/<Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
+    </div>
+  ));
+
+  return {
+    id: id,
+    interpretedAs: interpretedAs,
+    priority: 8,
+    data: <div>{rows}</div>,
+  };
+}
+
 export async function makeSimpleAddressDisplay(input: string): Promise<StaticDisplay> {
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
@@ -323,19 +347,7 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
     });
   }
 
-  const rows = addresses.map(a => (
-    <div key={a.path}>
-      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, 21)}</Link>{" "}
-      ({a.pubkey.algo}/<Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
-    </div>
-  ));
-
-  return {
-    id: `${input}#hd-wallet-simple-address`,
-    interpretedAs: `Simple Address HD Wallet`,
-    priority: 8,
-    data: <div>{rows}</div>,
-  };
+  return makeAddressesDisplay(`${input}#hd-wallet-simple-address`, `Simple Address HD Wallet`, addresses);
 }
 
 export async function makeHdWalletDisplay(
@@ -349,6 +361,7 @@ export async function makeHdWalletDisplay(
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
+    readonly pubkey: PublicKeyBundle;
     readonly address: Address;
   }> = [];
   for (let a = 0; a < 5; ++a) {
@@ -361,22 +374,12 @@ export async function makeHdWalletDisplay(
     const address = codec.keyToAddress(pubkey);
     addresses.push({
       path: `44'/${coinNumber}'/${a}'`,
+      pubkey: pubkey,
       address: address,
     });
   }
 
-  const rows = addresses.map(a => (
-    <div key={a.path}>
-      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{a.address}</Link>
-    </div>
-  ));
-
-  return {
-    id: `${input}#hd-wallet-coin${coinNumber}`,
-    interpretedAs: `${coinName} HD Wallet`,
-    priority: 8,
-    data: <div>{rows}</div>,
-  };
+  return makeAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses);
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
