@@ -29,6 +29,16 @@ export interface NetworkSettings {
 
 const bcpConnections = new Map<string, Promise<BcpConnection>>();
 
+function ellideMiddle(str: string, maxOutLen: number): string {
+  if (str.length <= maxOutLen) {
+    return str;
+  }
+  const ellide = "…";
+  const frontLen = Math.ceil((maxOutLen - ellide.length) / 2);
+  const tailLen = Math.floor((maxOutLen - ellide.length) / 2);
+  return str.slice(0, frontLen) + ellide + str.slice(-tailLen);
+}
+
 function makeBnsAccountDisplay(
   id: string,
   priority: number,
@@ -299,6 +309,7 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
+    readonly pubkey: PublicKeyBundle;
     readonly address: Address;
   }> = [];
   for (let index = 0; index < 5; ++index) {
@@ -307,13 +318,15 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
     const address = bnsCodec.keyToAddress(pubkey);
     addresses.push({
       path: `4804438'/${index}'`,
+      pubkey: pubkey,
       address: address,
     });
   }
 
   const rows = addresses.map(a => (
     <div key={a.path}>
-      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{a.address}</Link>
+      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, 21)}</Link>{" "}
+      ({a.pubkey.algo}/<Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
     </div>
   ));
 
