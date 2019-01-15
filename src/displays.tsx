@@ -45,10 +45,12 @@ function makeBnsAccountDisplay(
   interpretedAs: string,
   query: BcpAccountQuery,
   network: NetworkSettings,
+  deprecated: boolean = false,
 ): InteractiveDisplay {
   return {
     id: id,
     priority: priority,
+    deprecated: deprecated,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bcpConnections.has(network.url)) {
@@ -94,7 +96,7 @@ function makeBnsAccountDisplay(
       } else {
         data = <span className="inactive">Account not found</span>;
       }
-      return { id, interpretedAs, priority, data };
+      return { id, interpretedAs, priority, deprecated, data };
     },
   };
 }
@@ -106,11 +108,11 @@ export function makeBnsAddressDisplay(input: string, network: NetworkSettings): 
   return makeBnsAccountDisplay(id, priority, interpretedAs, { address: input as Address }, network);
 }
 
-export function makeBnsNameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-bns-name`;
-  const priority = 11;
-  const interpretedAs = `Name on ${network.name}`;
-  return makeBnsAccountDisplay(id, priority, interpretedAs, { name: input }, network);
+export function makeBnsNicknameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const id = `${input}#${network.name}-bns-nickname`;
+  const priority = 1011;
+  const interpretedAs = `Nickname on ${network.name}`;
+  return makeBnsAccountDisplay(id, priority, interpretedAs, { name: input }, network, true);
 }
 
 export function makeLiskAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {

@@ -43,12 +43,16 @@ class App extends React.Component<TestProps, TestState> {
 
   public render(): JSX.Element {
     const listItems = this.state
-      ? this.state.display.map(display => (
-          <div key={display.id} className="display">
-            <div className="display-title">{display.interpretedAs}</div>
-            <div className="display-data">{display.data}</div>
-          </div>
-        ))
+      ? this.state.display.map(display => {
+          return (
+            <div key={display.id} className={"display " + (display.deprecated ? "deprecated" : "")}>
+              <div className="content">
+                <div className="display-title">{display.interpretedAs}</div>
+                <div className="display-data">{display.data}</div>
+              </div>
+            </div>
+          );
+        })
       : [];
 
     return (
@@ -115,6 +119,7 @@ class App extends React.Component<TestProps, TestState> {
           id: display.id,
           interpretedAs: display.interpretedAs,
           priority: display.priority,
+          deprecated: display.deprecated,
           data: <div>Loading ...</div>,
         };
       } else {
@@ -138,6 +143,7 @@ class App extends React.Component<TestProps, TestState> {
             id: interactiveDisplay.id,
             interpretedAs: interactiveDisplay.interpretedAs,
             priority: interactiveDisplay.priority,
+            deprecated: interactiveDisplay.deprecated,
             data: <div className="error">{error.toString()}</div>,
           }))
           .then(rendered => {

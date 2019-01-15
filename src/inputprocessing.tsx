@@ -7,7 +7,7 @@ import {
   makeBech32Display,
   makeBip39MnemonicDisplay,
   makeBnsAddressDisplay,
-  makeBnsNameDisplay,
+  makeBnsNicknameDisplay,
   makeEd25519PubkeyDisplay,
   makeHdWalletDisplay,
   makeHexDisplay,
@@ -23,6 +23,7 @@ import { InputProperties, interprete } from "./interprete";
 export interface StaticDisplay {
   readonly id: string;
   readonly priority: number;
+  readonly deprecated?: boolean;
   readonly interpretedAs: string;
   readonly data: JSX.Element;
 }
@@ -30,6 +31,7 @@ export interface StaticDisplay {
 export interface InteractiveDisplay {
   readonly id: string;
   readonly priority: number;
+  readonly deprecated?: boolean;
   readonly interpretedAs: string;
   readonly getData: () => Promise<object>;
   readonly renderData: (data: any) => StaticDisplay;
@@ -112,9 +114,9 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
     }
   }
 
-  if (properties.has(InputProperties.BnsUsername)) {
+  if (properties.has(InputProperties.BnsNickname)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsNameDisplay(normalizedInput, network));
+      out.push(makeBnsNicknameDisplay(normalizedInput, network));
     }
   }
 

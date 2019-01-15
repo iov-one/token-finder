@@ -33,6 +33,24 @@
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 3px;
+  position: relative;
+}
+
+.display.deprecated > .content {
+  opacity: 0.4;
+}
+
+.display.deprecated::before {
+  content: "deprecated";
+  background-color: #555;
+  color: #f0f0f0;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 0.8em;
+  display: inline-block;
+  position: absolute;
+  top: 7px;
+  right: 7px;
 }
 
 .display-title {

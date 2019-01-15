@@ -12,8 +12,8 @@ export enum InputProperties {
   EnglishMnemonic12Words,
   IovAddressMainnet,
   IovAddressTestnet,
-  BnsUsername,
-  BnsBlockchain,
+  BnsNickname,
+  BnsBlockchainNft,
   LiskAddress,
   RiseAddress,
 }
@@ -58,8 +58,8 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
 
   // https://github.com/iov-one/weave/blob/v0.9.3/x/nft/username/msg.go#L19
   if (input.match(/^[a-z0-9\.,\+\-_@]{4,64}$/)) {
-    out.add(InputProperties.BnsUsername);
-    out.add(InputProperties.BnsBlockchain);
+    out.add(InputProperties.BnsNickname);
+    out.add(InputProperties.BnsBlockchainNft);
   }
 
   if (liskCodec.isValidAddress(input)) {
