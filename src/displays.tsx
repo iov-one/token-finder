@@ -67,30 +67,32 @@ function makeBnsAccountDisplay(
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
-            <tr>
-              <td>Address</td>
-              <td>
-                <Link to={"#" + address}>{address}</Link>
-              </td>
-            </tr>
-            <tr>
-              <td>Pubkey</td>
-              <td className="breakall">
-                {hexPubkey ? (
-                  <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
-                ) : (
-                  <span className="inactive">not available</span>
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>Name</td>
-              <td>{name ? <Link to={"#" + name}>{name}</Link> : "<none>"}</td>
-            </tr>
-            <tr>
-              <td>Balance</td>
-              <td>{balance.map(printAmount).join(", ")}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>Address</td>
+                <td>
+                  <Link to={"#" + address}>{address}</Link>
+                </td>
+              </tr>
+              <tr>
+                <td>Pubkey</td>
+                <td className="breakall">
+                  {hexPubkey ? (
+                    <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
+                  ) : (
+                    <span className="inactive">not available</span>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{name ? <Link to={"#" + name}>{name}</Link> : "<none>"}</td>
+              </tr>
+              <tr>
+                <td>Balance</td>
+                <td>{balance.map(printAmount).join(", ")}</td>
+              </tr>
+            </tbody>
           </table>
         );
       } else {
