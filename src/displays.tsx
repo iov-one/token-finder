@@ -306,7 +306,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
 function makeAddressesDisplay(
   id: string,
   interpretedAs: string,
-  addresses: Array<{
+  addresses: ReadonlyArray<{
     readonly path: string;
     readonly pubkey: PublicKeyBundle;
     readonly address: Address;
