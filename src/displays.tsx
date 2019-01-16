@@ -27,6 +27,19 @@ export interface NetworkSettings {
   readonly url: string;
 }
 
+const priorityEd25519PubkeyDisplay = 7;
+const priorityLiskLikePassphraseDisplay = 7;
+const priorityHdAddressesDisplay = 8;
+const priorityBnsAddressDisplay = 9;
+const priorityLiskAddressDisplay = 10;
+const priorityRiseAddressDisplay = 10;
+const priorityBech32Display = 10;
+const priorityWeaveAddressDisplay = 10;
+const priorityBip39MnemonicDisplay = 11;
+const priorityBnsUsernameNftDisplay = 15;
+const priorityHexDisplay = 20;
+const priorityBnsNicknameDisplay = 1011;
+
 const bcpConnections = new Map<string, Promise<BcpConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
 
@@ -106,25 +119,22 @@ function makeBnsAccountDisplay(
 
 export function makeBnsAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-bns-address`;
-  const priority = 9;
   const interpretedAs = `Address on ${network.name}`;
-  return makeBnsAccountDisplay(id, priority, interpretedAs, { address: input as Address }, network);
+  return makeBnsAccountDisplay(id, priorityBnsAddressDisplay, interpretedAs, { address: input as Address }, network);
 }
 
 export function makeBnsNicknameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-bns-nickname`;
-  const priority = 1011;
   const interpretedAs = `Nickname on ${network.name}`;
-  return makeBnsAccountDisplay(id, priority, interpretedAs, { name: input }, network, true);
+  return makeBnsAccountDisplay(id, priorityBnsNicknameDisplay, interpretedAs, { name: input }, network, true);
 }
 
 export function makeLiskAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-lisk-address`;
-  const priority = 10;
   const interpretedAs = `Address on ${network.name}`;
   return {
     id: id,
-    priority: priority,
+    priority: priorityLiskAddressDisplay,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bcpConnections.has(network.url)) {
@@ -166,18 +176,22 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
       } else {
         data = <span className="inactive">Account not found</span>;
       }
-      return { id, interpretedAs, priority, data };
+      return {
+        id: id,
+        interpretedAs: interpretedAs,
+        priority: priorityLiskAddressDisplay,
+        data: data,
+      };
     },
   };
 }
 
 export function makeRiseAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-rise-address`;
-  const priority = 10;
   const interpretedAs = `Address on ${network.name}`;
   return {
     id: id,
-    priority: priority,
+    priority: priorityRiseAddressDisplay,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bcpConnections.has(network.url)) {
@@ -219,18 +233,22 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
       } else {
         data = <span className="inactive">Account not found</span>;
       }
-      return { id, interpretedAs, priority, data };
+      return {
+        id: id,
+        priority: priorityRiseAddressDisplay,
+        interpretedAs: interpretedAs,
+        data: data,
+      };
     },
   };
 }
 
 export function makeBnsUsernameNftDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const displayId = `${input}#${network.name}-username-nft`;
-  const priority = 10;
   const interpretedAs = `Username NFT on ${network.name}`;
   return {
     id: displayId,
-    priority: priority,
+    priority: priorityBnsUsernameNftDisplay,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bnsConnections.has(network.url)) {
@@ -271,7 +289,12 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
       } else {
         data = <span className="inactive">NFT not found</span>;
       }
-      return { id: displayId, interpretedAs, priority, data };
+      return {
+        id: displayId,
+        interpretedAs: interpretedAs,
+        priority: priorityBnsUsernameNftDisplay,
+        data: data,
+      };
     },
   };
 }
@@ -281,7 +304,7 @@ export function makeBech32Display(input: string): StaticDisplay {
   return {
     id: `${input}#bech32`,
     interpretedAs: "Bech32 address",
-    priority: 10,
+    priority: priorityBech32Display,
     data: (
       <div>
         Prefix: {parsed.prefix}
@@ -297,7 +320,7 @@ export function makeHexDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#hex-summary`,
     interpretedAs: "Hex data summary",
-    priority: 20,
+    priority: priorityHexDisplay,
     data: (
       <div>
         Length: {inputData.length} bytes
@@ -322,7 +345,7 @@ export function makeWeaveAddressDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#weave-address`,
     interpretedAs: "Weave address",
-    priority: 10,
+    priority: priorityWeaveAddressDisplay,
     data: (
       <div>
         IOV test: <Link to={"#" + tiovAddress}>{tiovAddress}</Link>
@@ -346,7 +369,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#weave-address`,
     interpretedAs: "Ed25519 public key",
-    priority: 7,
+    priority: priorityEd25519PubkeyDisplay,
     data: (
       <div>
         BNS: <Link to={"#" + bnsAddress}>{bnsAddress}</Link>
@@ -360,7 +383,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   };
 }
 
-function makeAddressesDisplay(
+function makeHdAddressesDisplay(
   id: string,
   interpretedAs: string,
   addresses: ReadonlyArray<{
@@ -379,7 +402,7 @@ function makeAddressesDisplay(
   return {
     id: id,
     interpretedAs: interpretedAs,
-    priority: 8,
+    priority: priorityHdAddressesDisplay,
     data: <div>{rows}</div>,
   };
 }
@@ -404,7 +427,7 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
     });
   }
 
-  return makeAddressesDisplay(`${input}#hd-wallet-simple-address`, `Simple Address HD Wallet`, addresses);
+  return makeHdAddressesDisplay(`${input}#hd-wallet-simple-address`, `Simple Address HD Wallet`, addresses);
 }
 
 export async function makeHdWalletDisplay(
@@ -436,7 +459,7 @@ export async function makeHdWalletDisplay(
     });
   }
 
-  return makeAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses);
+  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses);
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
@@ -451,7 +474,7 @@ export async function makeLiskLikePassphraseDisplay(input: string): Promise<Stat
   return {
     id: `${input}#lisk-like-passphrase`,
     interpretedAs: "Lisk-like passphrase",
-    priority: 7,
+    priority: priorityLiskLikePassphraseDisplay,
     data: (
       <div>
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
@@ -491,7 +514,7 @@ export function makeBip39MnemonicDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#bip39-english-mnemonic`,
     interpretedAs: "Bip39 english mnemonic",
-    priority: 11,
+    priority: priorityBip39MnemonicDisplay,
     data: (
       <div>
         Words: {wordCount}
