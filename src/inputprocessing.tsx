@@ -52,6 +52,7 @@ const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
     name: "Yaknet (bnsd)",
     url: "https://bns.yaknet.iov.one",
+    bnsNftSupported: true,
   },
   {
     name: "Yaknet (bcpd)",
@@ -123,13 +124,13 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
   }
 
   if (properties.has(InputProperties.BnsUsernameNft)) {
-    for (const network of iovTestnets) {
+    for (const network of iovTestnets.filter(testnet => !!testnet.bnsNftSupported)) {
       out.push(makeBnsUsernameNftDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.BnsBlockchainNft)) {
-    for (const network of iovTestnets) {
+    for (const network of iovTestnets.filter(testnet => !!testnet.bnsNftSupported)) {
       out.push(makeBnsBlockchainNftDisplay(normalizedInput, network));
     }
   }

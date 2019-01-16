@@ -25,6 +25,7 @@ const { toHex } = Encoding;
 export interface NetworkSettings {
   readonly name: string;
   readonly url: string;
+  readonly bnsNftSupported?: boolean;
 }
 
 const priorityEd25519PubkeyDisplay = 7;
