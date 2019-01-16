@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Algorithm, PublicKeyBundle, PublicKeyBytes } from "@iov/base-types";
+import { Algorithm, ChainId, PublicKeyBundle, PublicKeyBytes } from "@iov/base-types";
 import {
   Address,
   BcpAccount,
@@ -10,7 +10,7 @@ import {
   BcpQueryEnvelope,
   TxCodec,
 } from "@iov/bcp-types";
-import { bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
+import { BnsBlockchainNft, bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Bech32, Encoding } from "@iov/encoding";
 import { Ed25519HdWallet, HdPaths } from "@iov/keycontrol";
@@ -37,6 +37,7 @@ const priorityBech32Display = 10;
 const priorityWeaveAddressDisplay = 10;
 const priorityBip39MnemonicDisplay = 11;
 const priorityBnsUsernameNftDisplay = 15;
+const priorityBnsBlockchainNftDisplay = 16;
 const priorityHexDisplay = 20;
 const priorityBnsNicknameDisplay = 1011;
 
@@ -282,6 +283,66 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
               <tr>
                 <td>Addresses</td>
                 <td>{addresses.map(pair => `${pair.chainId}: ${pair.address}`).join("; ")}</td>
+              </tr>
+            </tbody>
+          </table>
+        );
+      } else {
+        data = <span className="inactive">NFT not found</span>;
+      }
+      return {
+        id: displayId,
+        interpretedAs: interpretedAs,
+        priority: priorityBnsUsernameNftDisplay,
+        data: data,
+      };
+    },
+  };
+}
+
+export function makeBnsBlockchainNftDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const displayId = `${input}#${network.name}-blockchain-nft`;
+  const interpretedAs = `Blockchain NFT on ${network.name}`;
+  return {
+    id: displayId,
+    priority: priorityBnsBlockchainNftDisplay,
+    interpretedAs: interpretedAs,
+    getData: async () => {
+      if (!bnsConnections.has(network.url)) {
+        bnsConnections.set(network.url, BnsConnection.establish(network.url));
+      }
+      const connection = await bnsConnections.get(network.url)!;
+      const response = await connection.getBlockchains({ chainId: input as ChainId });
+      return response;
+    },
+    renderData: (response: ReadonlyArray<BnsBlockchainNft>) => {
+      let data: JSX.Element;
+      if (response.length > 0) {
+        const { id, owner, codecName, codecConfig } = response[0];
+        // TODO: BnsUsernameNft.owner should be of type Address directly
+        const ownerAsBech32 = Bech32.encode("tiov", owner);
+        data = (
+          <table>
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>
+                  <Link to={"#" + id}>{id}</Link>
+                </td>
+              </tr>
+              <tr>
+                <td>Owner</td>
+                <td>
+                  <Link to={"#" + ownerAsBech32}>{ownerAsBech32}</Link>
+                </td>
+              </tr>
+              <tr>
+                <td>Codec</td>
+                <td>{codecName}</td>
+              </tr>
+              <tr>
+                <td>Codec config</td>
+                <td>{codecConfig}</td>
               </tr>
             </tbody>
           </table>

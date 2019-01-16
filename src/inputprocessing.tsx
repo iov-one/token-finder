@@ -7,6 +7,7 @@ import {
   makeBech32Display,
   makeBip39MnemonicDisplay,
   makeBnsAddressDisplay,
+  makeBnsBlockchainNftDisplay,
   makeBnsNicknameDisplay,
   makeBnsUsernameNftDisplay,
   makeEd25519PubkeyDisplay,
@@ -124,6 +125,12 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
   if (properties.has(InputProperties.BnsUsernameNft)) {
     for (const network of iovTestnets) {
       out.push(makeBnsUsernameNftDisplay(normalizedInput, network));
+    }
+  }
+
+  if (properties.has(InputProperties.BnsBlockchainNft)) {
+    for (const network of iovTestnets) {
+      out.push(makeBnsBlockchainNftDisplay(normalizedInput, network));
     }
   }
 
