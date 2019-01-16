@@ -121,7 +121,13 @@ function makeBnsAccountDisplay(
 export function makeBnsAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-bns-address`;
   const interpretedAs = `Address on ${network.name}`;
-  return makeBnsAccountDisplay(id, priorityBnsAddressDisplay, interpretedAs, { address: input as Address }, network);
+  return makeBnsAccountDisplay(
+    id,
+    priorityBnsAddressDisplay,
+    interpretedAs,
+    { address: input as Address },
+    network,
+  );
 }
 
 export function makeBnsNicknameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
