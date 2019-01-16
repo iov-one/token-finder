@@ -14,6 +14,7 @@ export enum InputProperties {
   IovAddressTestnet,
   BnsNickname,
   BnsBlockchainNft,
+  BnsUsernameNft,
   LiskAddress,
   RiseAddress,
 }
@@ -60,6 +61,7 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
   if (input.match(/^[a-z0-9\.,\+\-_@]{4,64}$/)) {
     out.add(InputProperties.BnsNickname);
     out.add(InputProperties.BnsBlockchainNft);
+    out.add(InputProperties.BnsUsernameNft);
   }
 
   if (liskCodec.isValidAddress(input)) {
