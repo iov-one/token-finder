@@ -1,17 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Algorithm, ChainId, PublicKeyBundle, PublicKeyBytes } from "@iov/base-types";
 import {
   Address,
+  Algorithm,
   BcpAccount,
   BcpAccountQuery,
   BcpConnection,
   BcpQueryEnvelope,
+  ChainId,
+  PublicKeyBundle,
+  PublicKeyBytes,
   TxCodec,
 } from "@iov/bcp-types";
 import { BnsBlockchainNft, bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
+import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
 import { Ed25519HdWallet, HdPaths } from "@iov/keycontrol";
 import { liskCodec, LiskConnection, passphraseToKeypair } from "@iov/lisk";
@@ -41,7 +45,6 @@ const priorityBip39MnemonicDisplay = 11;
 const priorityBnsUsernameNftDisplay = 15;
 const priorityBnsBlockchainNftDisplay = 16;
 const priorityHexDisplay = 20;
-const priorityBnsNicknameDisplay = 1011;
 
 const bcpConnections = new Map<string, Promise<BcpConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
@@ -67,10 +70,10 @@ function makeBnsAccountDisplay(
       const response = await connection.getAccount(query);
       return response;
     },
-    renderData: (response: BcpQueryEnvelope<BcpAccount>) => {
+    renderData: (response: BcpAccount | undefined) => {
       let data: JSX.Element;
-      if (response.data.length > 0) {
-        const { address, pubkey, balance, name } = response.data[0];
+      if (response) {
+        const { address, pubkey, balance, name } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
@@ -120,12 +123,6 @@ export function makeBnsAddressDisplay(input: string, network: NetworkSettings): 
     { address: input as Address },
     network,
   );
-}
-
-export function makeBnsNicknameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-bns-nickname`;
-  const interpretedAs = `Nickname on ${network.name}`;
-  return makeBnsAccountDisplay(id, priorityBnsNicknameDisplay, interpretedAs, { name: input }, network, true);
 }
 
 export function makeLiskAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
@@ -261,8 +258,6 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
       let data: JSX.Element;
       if (response.length > 0) {
         const { id, owner, addresses } = response[0];
-        // TODO: BnsUsernameNft.owner should be of type Address directly
-        const ownerAsBech32 = Bech32.encode("tiov", owner);
         const addressElements = addresses.map(pair => (
           <span>
             {printEllideMiddle(pair.chainId, 12)}: {addressLink(pair.address)}
@@ -281,7 +276,7 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
               <tr>
                 <td>Owner</td>
                 <td>
-                  <Link to={"#" + ownerAsBech32}>{ownerAsBech32}</Link>
+                  <Link to={"#" + owner}>{owner}</Link>
                 </td>
               </tr>
               <tr>
@@ -323,8 +318,6 @@ export function makeBnsBlockchainNftDisplay(input: string, network: NetworkSetti
       let data: JSX.Element;
       if (response.length > 0) {
         const { id, owner, codecName, codecConfig } = response[0];
-        // TODO: BnsUsernameNft.owner should be of type Address directly
-        const ownerAsBech32 = Bech32.encode("tiov", owner);
         data = (
           <table>
             <tbody>
@@ -337,7 +330,7 @@ export function makeBnsBlockchainNftDisplay(input: string, network: NetworkSetti
               <tr>
                 <td>Owner</td>
                 <td>
-                  <Link to={"#" + ownerAsBech32}>{ownerAsBech32}</Link>
+                  <Link to={"#" + owner}>{owner}</Link>
                 </td>
               </tr>
               <tr>
@@ -422,14 +415,17 @@ export function makeWeaveAddressDisplay(input: string): StaticDisplay {
 }
 
 export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
-  const pubkey: PublicKeyBundle = {
-    algo: Algorithm.Ed25519,
-    data: Encoding.fromHex(input) as PublicKeyBytes,
-  };
+  const ed25519PubkeyBytes = Encoding.fromHex(input) as PublicKeyBytes;
 
-  const bnsAddress = bnsCodec.keyToAddress(pubkey);
-  const liskAddress = liskCodec.keyToAddress(pubkey);
-  const riseAddress = riseCodec.keyToAddress(pubkey);
+  const bnsAddress = bnsCodec.identityToAddress({
+    chainId: "some-testnet" as ChainId,
+    pubkey: {
+      algo: Algorithm.Ed25519,
+      data: ed25519PubkeyBytes,
+    },
+  });
+  const liskAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "L");
+  const riseAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "R");
 
   return {
     id: `${input}#ed25519-pubkey`,
@@ -475,6 +471,9 @@ function makeHdAddressesDisplay(
 export async function makeSimpleAddressDisplay(input: string): Promise<StaticDisplay> {
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
+  // any testnet leads to "tiov" prefixes
+  const chainId = "some-testnet" as ChainId;
+
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
@@ -483,11 +482,11 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
   }> = [];
   for (let index = 0; index < 5; ++index) {
     const path = HdPaths.simpleAddress(index);
-    const pubkey = (await wallet.createIdentity(path)).pubkey;
-    const address = bnsCodec.keyToAddress(pubkey);
+    const identity = await wallet.createIdentity(chainId, path);
+    const address = bnsCodec.identityToAddress(identity);
     addresses.push({
       path: `4804438'/${index}'`,
-      pubkey: pubkey,
+      pubkey: identity.pubkey,
       address: address,
     });
   }
@@ -499,6 +498,7 @@ export async function makeHdWalletDisplay(
   input: string,
   coinNumber: number,
   coinName: string,
+  chainId: ChainId,
   codec: TxCodec,
 ): Promise<StaticDisplay> {
   const wallet = Ed25519HdWallet.fromMnemonic(input);
@@ -515,11 +515,11 @@ export async function makeHdWalletDisplay(
       Slip10RawIndex.hardened(coinNumber),
       Slip10RawIndex.hardened(a),
     ];
-    const pubkey = (await wallet.createIdentity(path)).pubkey;
-    const address = codec.keyToAddress(pubkey);
+    const identity = await wallet.createIdentity(chainId, path);
+    const address = codec.identityToAddress(identity);
     addresses.push({
       path: `44'/${coinNumber}'/${a}'`,
-      pubkey: pubkey,
+      pubkey: identity.pubkey,
       address: address,
     });
   }
@@ -528,13 +528,8 @@ export async function makeHdWalletDisplay(
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
-  const pubkey: PublicKeyBundle = {
-    algo: Algorithm.Ed25519,
-    data: (await passphraseToKeypair(input)).pubkey as PublicKeyBytes,
-  };
-
-  const liskAddress = liskCodec.keyToAddress(pubkey);
-  const riseAddress = riseCodec.keyToAddress(pubkey);
+  const liskAddress = Derivation.pubkeyToAddress((await passphraseToKeypair(input)).pubkey, "L");
+  const riseAddress = Derivation.pubkeyToAddress((await passphraseToKeypair(input)).pubkey, "R");
 
   return {
     id: `${input}#lisk-like-passphrase`,
