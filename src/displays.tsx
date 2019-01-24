@@ -435,7 +435,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   const riseAddress = riseCodec.keyToAddress(pubkey);
 
   return {
-    id: `${input}#weave-address`,
+    id: `${input}#ed25519-pubkey`,
     interpretedAs: "Ed25519 public key",
     priority: priorityEd25519PubkeyDisplay,
     data: (
