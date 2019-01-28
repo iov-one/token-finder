@@ -140,10 +140,10 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
       const response = await connection.getAccount({ address: input as Address });
       return response;
     },
-    renderData: (response: BcpQueryEnvelope<BcpAccount>) => {
+    renderData: (response: BcpAccount | undefined) => {
       let data: JSX.Element;
-      if (response.data.length > 0) {
-        const { address, pubkey, balance, name } = response.data[0];
+      if (response) {
+        const { address, pubkey, balance, name } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
@@ -197,10 +197,10 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
       const response = await connection.getAccount({ address: input as Address });
       return response;
     },
-    renderData: (response: BcpQueryEnvelope<BcpAccount>) => {
+    renderData: (response: BcpAccount | undefined) => {
       let data: JSX.Element;
-      if (response.data.length > 0) {
-        const { address, pubkey, balance, name } = response.data[0];
+      if (response) {
+        const { address, pubkey, balance, name } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
