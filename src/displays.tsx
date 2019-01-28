@@ -143,7 +143,7 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
     renderData: (response: BcpAccount | undefined) => {
       let data: JSX.Element;
       if (response) {
-        const { address, pubkey, balance, name } = response;
+        const { address, pubkey, balance } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
@@ -200,7 +200,7 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
     renderData: (response: BcpAccount | undefined) => {
       let data: JSX.Element;
       if (response) {
-        const { address, pubkey, balance, name } = response;
+        const { address, pubkey, balance } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
