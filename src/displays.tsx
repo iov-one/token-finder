@@ -19,6 +19,7 @@ import { riseCodec, RiseConnection } from "@iov/rise";
 
 import { printAmount } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
+import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
 const { toHex } = Encoding;
 
@@ -44,16 +45,6 @@ const priorityBnsNicknameDisplay = 1011;
 
 const bcpConnections = new Map<string, Promise<BcpConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
-
-function ellideMiddle(str: string, maxOutLen: number): string {
-  if (str.length <= maxOutLen) {
-    return str;
-  }
-  const ellide = "…";
-  const frontLen = Math.ceil((maxOutLen - ellide.length) / 2);
-  const tailLen = Math.floor((maxOutLen - ellide.length) / 2);
-  return str.slice(0, frontLen) + ellide + str.slice(-tailLen);
-}
 
 function makeBnsAccountDisplay(
   id: string,
@@ -272,6 +263,12 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
         const { id, owner, addresses } = response[0];
         // TODO: BnsUsernameNft.owner should be of type Address directly
         const ownerAsBech32 = Bech32.encode("tiov", owner);
+        const addressElements = addresses.map(pair => (
+          <span>
+            {printEllideMiddle(pair.chainId, 12)}: {addressLink(pair.address)}
+            <br />
+          </span>
+        ));
         data = (
           <table>
             <tbody>
@@ -289,7 +286,7 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
               </tr>
               <tr>
                 <td>Addresses</td>
-                <td>{addresses.map(pair => `${pair.chainId}: ${pair.address}`).join("; ")}</td>
+                <td>{addressElements}</td>
               </tr>
             </tbody>
           </table>
