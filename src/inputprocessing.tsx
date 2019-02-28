@@ -138,12 +138,12 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
   if (properties.has(InputProperties.EnglishMnemonic)) {
     out.push(makeBip39MnemonicDisplay(normalizedInput));
 
-    out.push(await makeSimpleAddressDisplay(normalizedInput));
     for (const hdCoin of accountBasedSlip10HdCoins) {
       out.push(
         await makeHdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
       );
     }
+    out.push(await makeSimpleAddressDisplay(normalizedInput));
 
     if (properties.has(InputProperties.EnglishMnemonic12Words)) {
       out.push(await makeLiskLikePassphraseDisplay(normalizedInput));

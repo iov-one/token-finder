@@ -441,6 +441,7 @@ function makeHdAddressesDisplay(
     readonly pubkey: PublicKeyBundle;
     readonly address: Address;
   }>,
+  deprecated?: boolean,
 ): StaticDisplay {
   const rows = addresses.map(a => (
     <div key={a.path}>
@@ -453,6 +454,7 @@ function makeHdAddressesDisplay(
     id: id,
     interpretedAs: interpretedAs,
     priority: priorityHdAddressesDisplay,
+    deprecated: deprecated,
     data: <div>{rows}</div>,
   };
 }
@@ -480,7 +482,12 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
     });
   }
 
-  return makeHdAddressesDisplay(`${input}#hd-wallet-simple-address`, `Simple Address HD Wallet`, addresses);
+  return makeHdAddressesDisplay(
+    `${input}#hd-wallet-simple-address`,
+    `Simple Address HD Wallet`,
+    addresses,
+    true,
+  );
 }
 
 export async function makeHdWalletDisplay(
