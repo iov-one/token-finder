@@ -17,8 +17,8 @@ import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
 import { Ed25519HdWallet, HdPaths } from "@iov/keycontrol";
-import { liskCodec, LiskConnection, passphraseToKeypair } from "@iov/lisk";
-import { riseCodec, RiseConnection } from "@iov/rise";
+import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
+import { RiseConnection } from "@iov/rise";
 
 import { printAmount } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
