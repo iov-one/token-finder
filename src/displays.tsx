@@ -79,9 +79,7 @@ function makeBnsAccountDisplay(
             <tbody>
               <tr>
                 <td>Address</td>
-                <td>
-                  <Link to={"#" + address}>{address}</Link>
-                </td>
+                <td>{addressLink(address)}</td>
               </tr>
               <tr>
                 <td>Pubkey</td>
@@ -144,9 +142,7 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
           <table>
             <tr>
               <td>Address</td>
-              <td>
-                <Link to={"#" + address}>{address}</Link>
-              </td>
+              <td>{addressLink(address)}</td>
             </tr>
             <tr>
               <td>Pubkey</td>
@@ -201,9 +197,7 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
           <table>
             <tr>
               <td>Address</td>
-              <td>
-                <Link to={"#" + address}>{address}</Link>
-              </td>
+              <td>{addressLink(address)}</td>
             </tr>
             <tr>
               <td>Pubkey</td>
