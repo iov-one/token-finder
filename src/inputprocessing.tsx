@@ -49,13 +49,13 @@ export function isInteractiveDisplay(display: Display): display is InteractiveDi
 
 const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
-    name: "Yaknet (bnsd)",
-    url: "https://bns.yaknet.iov.one",
+    name: "Hugnet (bnsd)",
+    url: "https://bns.hugnet.iov.one",
     bnsNftSupported: true,
   },
   {
-    name: "Yaknet (bcpd)",
-    url: "https://bov.yaknet.iov.one",
+    name: "Hugnet (bcpd)",
+    url: "https://bov.hugnet.iov.one",
   },
 ];
 

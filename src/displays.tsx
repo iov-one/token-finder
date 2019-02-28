@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import {
+  Account,
+  AccountQuery,
   Address,
   Algorithm,
-  BcpAccount,
-  BcpAccountQuery,
   BcpConnection,
-  BcpQueryEnvelope,
   ChainId,
   PublicKeyBundle,
   PublicKeyBytes,
@@ -53,7 +52,7 @@ function makeBnsAccountDisplay(
   id: string,
   priority: number,
   interpretedAs: string,
-  query: BcpAccountQuery,
+  query: AccountQuery,
   network: NetworkSettings,
   deprecated: boolean = false,
 ): InteractiveDisplay {
@@ -70,10 +69,10 @@ function makeBnsAccountDisplay(
       const response = await connection.getAccount(query);
       return response;
     },
-    renderData: (response: BcpAccount | undefined) => {
+    renderData: (response: Account | undefined) => {
       let data: JSX.Element;
       if (response) {
-        const { address, pubkey, balance, name } = response;
+        const { address, pubkey, balance } = response;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
         data = (
           <table>
@@ -93,10 +92,6 @@ function makeBnsAccountDisplay(
                     <span className="inactive">not available</span>
                   )}
                 </td>
-              </tr>
-              <tr>
-                <td>Name</td>
-                <td>{name ? <Link to={"#" + name}>{name}</Link> : "<none>"}</td>
               </tr>
               <tr>
                 <td>Balance</td>
@@ -140,7 +135,7 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
       const response = await connection.getAccount({ address: input as Address });
       return response;
     },
-    renderData: (response: BcpAccount | undefined) => {
+    renderData: (response: Account | undefined) => {
       let data: JSX.Element;
       if (response) {
         const { address, pubkey, balance } = response;
@@ -197,7 +192,7 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
       const response = await connection.getAccount({ address: input as Address });
       return response;
     },
-    renderData: (response: BcpAccount | undefined) => {
+    renderData: (response: Account | undefined) => {
       let data: JSX.Element;
       if (response) {
         const { address, pubkey, balance } = response;
