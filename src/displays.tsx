@@ -20,7 +20,7 @@ import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
 
-import { printAmount } from "./bcphelpers";
+import { printAmount, printPath } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
 import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
@@ -516,7 +516,7 @@ export async function makeEd25519HdWalletDisplay(
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: `44'/${coinNumber}'/${a}'`,
+      path: printPath(path),
       pubkey: identity.pubkey,
       address: address,
     });
@@ -551,7 +551,7 @@ export async function makeSecp256k1HdWalletDisplay(
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: `44'/${coinNumber}'/0'/0/${a}`,
+      path: printPath(path),
       pubkey: identity.pubkey,
       address: address,
     });

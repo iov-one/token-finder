@@ -1,4 +1,5 @@
 import { Amount } from "@iov/bcp-types";
+import { Slip10RawIndex } from "@iov/crypto";
 
 import leftPad from "left-pad";
 
@@ -15,4 +16,9 @@ export function printAmount(amount: Amount): string {
   );
   const trimmedFractional = fractional.replace(/0+$/, "") || "0";
   return `${whole}.${trimmedFractional}${narrowNoBreakSpace}${amount.tokenTicker}`;
+}
+
+export function printPath(path: ReadonlyArray<Slip10RawIndex>): string {
+  const components = path.map(ri => (ri.isHardened()) ? `${ri.toNumber() - 2 ** 31}'` : `${ri.toNumber()}`);
+  return `m/${components.join("/")}`;
 }
