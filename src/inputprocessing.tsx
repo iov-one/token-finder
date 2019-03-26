@@ -1,5 +1,6 @@
 import { ChainId, TxCodec } from "@iov/bcp-types";
 import { bnsCodec } from "@iov/bns";
+import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
 
@@ -9,12 +10,13 @@ import {
   makeBnsAddressDisplay,
   makeBnsBlockchainNftDisplay,
   makeBnsUsernameNftDisplay,
+  makeEd25519HdWalletDisplay,
   makeEd25519PubkeyDisplay,
-  makeHdWalletDisplay,
   makeHexDisplay,
   makeLiskAddressDisplay,
   makeLiskLikePassphraseDisplay,
   makeRiseAddressDisplay,
+  makeSecp256k1HdWalletDisplay,
   makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
   NetworkSettings,
@@ -110,6 +112,21 @@ const accountBasedSlip10HdCoins: ReadonlyArray<{
   },
 ];
 
+const secp256k1Slip10HdCoins: ReadonlyArray<{
+  readonly name: string;
+  readonly number: number;
+  readonly chainId: ChainId;
+  readonly codec: TxCodec;
+}> = [
+  {
+    name: "Ethereum",
+    number: 60,
+    // all Ethereum networks use the same addresses
+    chainId: "ethereum-eip155-0" as ChainId,
+    codec: ethereumCodec,
+  },
+];
+
 export async function processInput(input: string): Promise<ReadonlyArray<Display>> {
   const normalizedInput = input.trim();
 
@@ -140,7 +157,12 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
 
     for (const hdCoin of accountBasedSlip10HdCoins) {
       out.push(
-        await makeHdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
+        await makeEd25519HdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
+      );
+    }
+    for (const hdCoin of secp256k1Slip10HdCoins) {
+      out.push(
+        await makeSecp256k1HdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
       );
     }
     out.push(await makeSimpleAddressDisplay(normalizedInput));

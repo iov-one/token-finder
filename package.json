@@ -11,6 +11,7 @@
     "@iov/crypto": "^0.12.0",
     "@iov/dpos": "^0.12.0",
     "@iov/encoding": "^0.12.0",
+    "@iov/ethereum": "^0.12.2",
     "@iov/keycontrol": "^0.12.0",
     "@iov/lisk": "^0.12.0",
     "@iov/rise": "^0.12.0",

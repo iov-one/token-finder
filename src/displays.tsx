@@ -16,7 +16,7 @@ import { BnsBlockchainNft, bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
-import { Ed25519HdWallet, HdPaths } from "@iov/keycontrol";
+import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
 
@@ -441,11 +441,12 @@ function makeHdAddressesDisplay(
     readonly pubkey: PublicKeyBundle;
     readonly address: Address;
   }>,
+  addressLength: number,
   deprecated?: boolean,
 ): StaticDisplay {
   const rows = addresses.map(a => (
     <div key={a.path}>
-      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, 21)}</Link>{" "}
+      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, addressLength)}</Link>{" "}
       ({a.pubkey.algo}/<Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
     </div>
   ));
@@ -486,11 +487,12 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
     `${input}#hd-wallet-simple-address`,
     `Simple Address HD Wallet`,
     addresses,
+    21,
     true,
   );
 }
 
-export async function makeHdWalletDisplay(
+export async function makeEd25519HdWalletDisplay(
   input: string,
   coinNumber: number,
   coinName: string,
@@ -520,7 +522,42 @@ export async function makeHdWalletDisplay(
     });
   }
 
-  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses);
+  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses, 21);
+}
+
+export async function makeSecp256k1HdWalletDisplay(
+  input: string,
+  coinNumber: number,
+  coinName: string,
+  chainId: ChainId,
+  codec: TxCodec,
+): Promise<StaticDisplay> {
+  const wallet = Secp256k1HdWallet.fromMnemonic(input);
+
+  // tslint:disable-next-line:readonly-array
+  const addresses: Array<{
+    readonly path: string;
+    readonly pubkey: PublicKeyBundle;
+    readonly address: Address;
+  }> = [];
+  for (let a = 0; a < 5; ++a) {
+    const path: ReadonlyArray<Slip10RawIndex> = [
+      Slip10RawIndex.hardened(44),
+      Slip10RawIndex.hardened(coinNumber),
+      Slip10RawIndex.hardened(0),
+      Slip10RawIndex.normal(0),
+      Slip10RawIndex.normal(a),
+    ];
+    const identity = await wallet.createIdentity(chainId, path);
+    const address = codec.identityToAddress(identity);
+    addresses.push({
+      path: `44'/${coinNumber}'/0'/0/${a}`,
+      pubkey: identity.pubkey,
+      address: address,
+    });
+  }
+
+  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses, 16);
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
