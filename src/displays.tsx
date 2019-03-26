@@ -11,7 +11,7 @@ import {
   PublicKeyBundle,
   PublicKeyBytes,
   TxCodec,
-} from "@iov/bcp-types";
+} from "@iov/bcp";
 import { BnsBlockchainNft, bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";

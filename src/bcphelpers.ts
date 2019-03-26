@@ -1,4 +1,4 @@
-import { Amount } from "@iov/bcp-types";
+import { Amount } from "@iov/bcp";
 import { Slip10RawIndex } from "@iov/crypto";
 
 import leftPad from "left-pad";
