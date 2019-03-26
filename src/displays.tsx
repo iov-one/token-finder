@@ -446,8 +446,9 @@ function makeHdAddressesDisplay(
 ): StaticDisplay {
   const rows = addresses.map(a => (
     <div key={a.path}>
-      <span className="mono">{a.path}</span>: <Link to={"#" + a.address}>{ellideMiddle(a.address, addressLength)}</Link>{" "}
-      ({a.pubkey.algo}/<Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
+      <span className="mono">{a.path}</span>:{" "}
+      <Link to={"#" + a.address}>{ellideMiddle(a.address, addressLength)}</Link> ({a.pubkey.algo}/
+      <Link to={"#" + toHex(a.pubkey.data)}>{ellideMiddle(toHex(a.pubkey.data), 5)}</Link>)
     </div>
   ));
 
@@ -522,7 +523,12 @@ export async function makeEd25519HdWalletDisplay(
     });
   }
 
-  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses, 21);
+  return makeHdAddressesDisplay(
+    `${input}#hd-wallet-coin${coinNumber}`,
+    `${coinName} HD Wallet`,
+    addresses,
+    21,
+  );
 }
 
 export async function makeSecp256k1HdWalletDisplay(
@@ -557,7 +563,12 @@ export async function makeSecp256k1HdWalletDisplay(
     });
   }
 
-  return makeHdAddressesDisplay(`${input}#hd-wallet-coin${coinNumber}`, `${coinName} HD Wallet`, addresses, 16);
+  return makeHdAddressesDisplay(
+    `${input}#hd-wallet-coin${coinNumber}`,
+    `${coinName} HD Wallet`,
+    addresses,
+    16,
+  );
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {

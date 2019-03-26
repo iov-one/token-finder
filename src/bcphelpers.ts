@@ -19,6 +19,6 @@ export function printAmount(amount: Amount): string {
 }
 
 export function printPath(path: ReadonlyArray<Slip10RawIndex>): string {
-  const components = path.map(ri => (ri.isHardened()) ? `${ri.toNumber() - 2 ** 31}'` : `${ri.toNumber()}`);
+  const components = path.map(ri => (ri.isHardened() ? `${ri.toNumber() - 2 ** 31}'` : `${ri.toNumber()}`));
   return `m/${components.join("/")}`;
 }

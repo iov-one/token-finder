@@ -157,12 +157,24 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
 
     for (const hdCoin of accountBasedSlip10HdCoins) {
       out.push(
-        await makeEd25519HdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
+        await makeEd25519HdWalletDisplay(
+          normalizedInput,
+          hdCoin.number,
+          hdCoin.name,
+          hdCoin.chainId,
+          hdCoin.codec,
+        ),
       );
     }
     for (const hdCoin of secp256k1Slip10HdCoins) {
       out.push(
-        await makeSecp256k1HdWalletDisplay(normalizedInput, hdCoin.number, hdCoin.name, hdCoin.chainId, hdCoin.codec),
+        await makeSecp256k1HdWalletDisplay(
+          normalizedInput,
+          hdCoin.number,
+          hdCoin.name,
+          hdCoin.chainId,
+          hdCoin.codec,
+        ),
       );
     }
     out.push(await makeSimpleAddressDisplay(normalizedInput));
