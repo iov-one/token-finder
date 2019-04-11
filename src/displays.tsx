@@ -16,6 +16,7 @@ import { BnsBlockchainNft, bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
+import { toChecksummedAddress } from "@iov/ethereum";
 import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
@@ -40,6 +41,7 @@ const priorityLiskAddressDisplay = 10;
 const priorityRiseAddressDisplay = 10;
 const priorityBech32Display = 10;
 const priorityWeaveAddressDisplay = 10;
+const priorityEthereumAddressDisplay = 10;
 const priorityBip39MnemonicDisplay = 11;
 const priorityBnsUsernameNftDisplay = 15;
 const priorityBnsBlockchainNftDisplay = 16;
@@ -398,6 +400,34 @@ export function makeWeaveAddressDisplay(input: string): StaticDisplay {
         IOV test: <Link to={"#" + tiovAddress}>{tiovAddress}</Link>
         <br />
         IOV main: <Link to={"#" + iovAddress}>{iovAddress}</Link>
+      </div>
+    ),
+  };
+}
+
+export function makeEthereumAddressDisplay(input: string): StaticDisplay {
+  const lower = input.toLowerCase();
+  const checksummed = toChecksummedAddress(input);
+  return {
+    id: `${input}#ethereum-address`,
+    interpretedAs: "Ethereum address",
+    priority: priorityEthereumAddressDisplay,
+    data: (
+      <div>
+        <div className="pair">
+          <div className="pair-key">Lower:&nbsp;</div>
+          <div className="pair-value data">{lower}</div>
+        </div>
+        <div className="pair">
+          <div className="pair-key">Checksummed:&nbsp;</div>
+          <div className="pair-value data">{checksummed}</div>
+        </div>
+        <div>
+          View on Etherscan:&nbsp;
+          <a className="external" href={"https://ropsten.etherscan.io/address/" + checksummed}>Ropsten</a>&nbsp;
+          <a className="external" href={"https://rinkeby.etherscan.io/address/" + checksummed}>Rinkeby</a>&nbsp;
+          <a className="external" href={"https://etherscan.io/address/" + checksummed}>Mainnet</a>
+        </div>
       </div>
     ),
   };

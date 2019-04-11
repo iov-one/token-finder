@@ -1,5 +1,6 @@
 import { Bip39, EnglishMnemonic } from "@iov/crypto";
 import { Bech32, Encoding } from "@iov/encoding";
+import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
 
@@ -10,6 +11,7 @@ export enum InputProperties {
   ByteLength32,
   EnglishMnemonic,
   EnglishMnemonic12Words,
+  EthereumAddress,
   IovAddressMainnet,
   IovAddressTestnet,
   BnsBlockchainNft,
@@ -68,6 +70,10 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
 
   if (riseCodec.isValidAddress(input)) {
     out.add(InputProperties.RiseAddress);
+  }
+
+  if (ethereumCodec.isValidAddress(input)) {
+    out.add(InputProperties.EthereumAddress);
   }
 
   return out;

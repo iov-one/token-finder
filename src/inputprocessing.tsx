@@ -12,6 +12,7 @@ import {
   makeBnsUsernameNftDisplay,
   makeEd25519HdWalletDisplay,
   makeEd25519PubkeyDisplay,
+  makeEthereumAddressDisplay,
   makeHexDisplay,
   makeLiskAddressDisplay,
   makeLiskLikePassphraseDisplay,
@@ -208,6 +209,10 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
     for (const network of riseNetworks) {
       out.push(makeRiseAddressDisplay(normalizedInput, network));
     }
+  }
+
+  if (properties.has(InputProperties.EthereumAddress)) {
+    out.push(makeEthereumAddressDisplay(normalizedInput));
   }
 
   out.sort((a, b) => a.priority - b.priority);
