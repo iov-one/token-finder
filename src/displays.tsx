@@ -250,7 +250,7 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
       if (response.length > 0) {
         const { id, owner, addresses } = response[0];
         const addressElements = addresses.map(pair => (
-          <span>
+          <span key={pair.chainId}>
             {printEllideMiddle(pair.chainId, 12)}: {addressLink(pair.address)}
             <br />
           </span>
