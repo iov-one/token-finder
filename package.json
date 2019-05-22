@@ -24,7 +24,7 @@
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.5",
-    "typescript": "~3.2"
+    "typescript": "~3.4"
   },
   "scripts": {
     "lint": "tslint -t verbose --project .",
