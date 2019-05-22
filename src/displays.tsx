@@ -365,9 +365,17 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
         </div>
         <div>
           View on Etherscan:&nbsp;
-          <a className="external" href={"https://ropsten.etherscan.io/address/" + checksummed}>Ropsten</a>&nbsp;
-          <a className="external" href={"https://rinkeby.etherscan.io/address/" + checksummed}>Rinkeby</a>&nbsp;
-          <a className="external" href={"https://etherscan.io/address/" + checksummed}>Mainnet</a>
+          <a className="external" href={"https://ropsten.etherscan.io/address/" + checksummed}>
+            Ropsten
+          </a>
+          &nbsp;
+          <a className="external" href={"https://rinkeby.etherscan.io/address/" + checksummed}>
+            Rinkeby
+          </a>
+          &nbsp;
+          <a className="external" href={"https://etherscan.io/address/" + checksummed}>
+            Mainnet
+          </a>
         </div>
       </div>
     ),
