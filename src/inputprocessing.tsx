@@ -8,7 +8,6 @@ import {
   makeBech32Display,
   makeBip39MnemonicDisplay,
   makeBnsAddressDisplay,
-  makeBnsBlockchainNftDisplay,
   makeBnsUsernameNftDisplay,
   makeEd25519HdWalletDisplay,
   makeEd25519PubkeyDisplay,
@@ -52,13 +51,13 @@ export function isInteractiveDisplay(display: Display): display is InteractiveDi
 
 const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
-    name: "Hugnet (bnsd)",
-    url: "https://bns.hugnet.iov.one",
+    name: "Zebranet (bnsd)",
+    url: "https://bns.zebranet.iov.one",
     bnsNftSupported: true,
   },
   {
-    name: "Hugnet (bcpd)",
-    url: "https://bov.hugnet.iov.one",
+    name: "Zebranet (bcpd)",
+    url: "https://bcp.zebranet.iov.one",
   },
 ];
 
@@ -144,12 +143,6 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
   if (properties.has(InputProperties.BnsUsernameNft)) {
     for (const network of iovTestnets.filter(testnet => !!testnet.bnsNftSupported)) {
       out.push(makeBnsUsernameNftDisplay(normalizedInput, network));
-    }
-  }
-
-  if (properties.has(InputProperties.BnsBlockchainNft)) {
-    for (const network of iovTestnets.filter(testnet => !!testnet.bnsNftSupported)) {
-      out.push(makeBnsBlockchainNftDisplay(normalizedInput, network));
     }
   }
 
