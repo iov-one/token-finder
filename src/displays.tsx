@@ -23,15 +23,10 @@ import { RiseConnection } from "@iov/rise";
 
 import { printAmount, printPath } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
+import { HdCoin, NetworkSettings } from "./settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
 const { toHex } = Encoding;
-
-export interface NetworkSettings {
-  readonly name: string;
-  readonly url: string;
-  readonly bnsNftSupported?: boolean;
-}
 
 const priorityEd25519PubkeyDisplay = 7;
 const priorityLiskLikePassphraseDisplay = 7;
@@ -472,13 +467,9 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
   );
 }
 
-export async function makeEd25519HdWalletDisplay(
-  input: string,
-  coinNumber: number,
-  coinName: string,
-  chainId: ChainId,
-  codec: TxCodec,
-): Promise<StaticDisplay> {
+export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): Promise<StaticDisplay> {
+  const { number: coinNumber, name: coinName, chainId, codec } = coin;
+
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
   // tslint:disable-next-line:readonly-array
@@ -510,13 +501,9 @@ export async function makeEd25519HdWalletDisplay(
   );
 }
 
-export async function makeSecp256k1HdWalletDisplay(
-  input: string,
-  coinNumber: number,
-  coinName: string,
-  chainId: ChainId,
-  codec: TxCodec,
-): Promise<StaticDisplay> {
+export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin): Promise<StaticDisplay> {
+  const { number: coinNumber, name: coinName, chainId, codec } = coin;
+
   const wallet = Secp256k1HdWallet.fromMnemonic(input);
 
   // tslint:disable-next-line:readonly-array

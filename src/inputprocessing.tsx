@@ -1,9 +1,3 @@
-import { ChainId, TxCodec } from "@iov/bcp";
-import { bnsCodec } from "@iov/bns";
-import { ethereumCodec } from "@iov/ethereum";
-import { liskCodec } from "@iov/lisk";
-import { riseCodec } from "@iov/rise";
-
 import {
   makeBech32Display,
   makeBip39MnemonicDisplay,
@@ -19,9 +13,15 @@ import {
   makeSecp256k1HdWalletDisplay,
   makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
-  NetworkSettings,
 } from "./displays";
 import { InputProperties, interprete } from "./interprete";
+import {
+  accountBasedSlip10HdCoins,
+  iovTestnets,
+  liskNetworks,
+  riseNetworks,
+  secp256k1Slip10HdCoins,
+} from "./settings";
 
 export interface StaticDisplay {
   readonly id: string;
@@ -49,84 +49,6 @@ export function isInteractiveDisplay(display: Display): display is InteractiveDi
   );
 }
 
-const iovTestnets: ReadonlyArray<NetworkSettings> = [
-  {
-    name: "Zebranet (bnsd)",
-    url: "https://bns.zebranet.iov.one",
-    bnsNftSupported: true,
-  },
-  {
-    name: "Zebranet (bcpd)",
-    url: "https://bcp.zebranet.iov.one",
-  },
-];
-
-const liskNetworks: ReadonlyArray<NetworkSettings> = [
-  {
-    name: "Lisk Testnet",
-    url: "https://testnet.lisk.io",
-  },
-  {
-    name: "Lisk Mainnet",
-    url: "https://hub32.lisk.io",
-  },
-];
-
-const riseNetworks: ReadonlyArray<NetworkSettings> = [
-  {
-    name: "RISE Testnet",
-    url: "https://twallet.rise.vision",
-  },
-  {
-    name: "RISE Mainnet",
-    url: "https://wallet.rise.vision",
-  },
-];
-
-const accountBasedSlip10HdCoins: ReadonlyArray<{
-  readonly name: string;
-  readonly number: number;
-  readonly chainId: ChainId;
-  readonly codec: TxCodec;
-}> = [
-  {
-    name: "IOV",
-    number: 234,
-    // any testnet leads to "tiov" prefixes
-    chainId: "some-testnet" as ChainId,
-    codec: bnsCodec,
-  },
-  {
-    name: "Lisk",
-    number: 134,
-    // https://github.com/prolina-foundation/lisk-wiki/blob/master/Networks.md#mainnet
-    chainId: "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511" as ChainId,
-    codec: liskCodec,
-  },
-  {
-    name: "RISE",
-    number: 1120,
-    // https://github.com/RiseVision/rise-node/blob/master/etc/mainnet/config.json
-    chainId: "cd8171332c012514864edd8eb6f68fc3ea6cb2afbaf21c56e12751022684cea5" as ChainId,
-    codec: riseCodec,
-  },
-];
-
-const secp256k1Slip10HdCoins: ReadonlyArray<{
-  readonly name: string;
-  readonly number: number;
-  readonly chainId: ChainId;
-  readonly codec: TxCodec;
-}> = [
-  {
-    name: "Ethereum",
-    number: 60,
-    // all Ethereum networks use the same addresses
-    chainId: "ethereum-eip155-0" as ChainId,
-    codec: ethereumCodec,
-  },
-];
-
 export async function processInput(input: string): Promise<ReadonlyArray<Display>> {
   const normalizedInput = input.trim();
 
@@ -150,26 +72,10 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
     out.push(makeBip39MnemonicDisplay(normalizedInput));
 
     for (const hdCoin of accountBasedSlip10HdCoins) {
-      out.push(
-        await makeEd25519HdWalletDisplay(
-          normalizedInput,
-          hdCoin.number,
-          hdCoin.name,
-          hdCoin.chainId,
-          hdCoin.codec,
-        ),
-      );
+      out.push(await makeEd25519HdWalletDisplay(normalizedInput, hdCoin));
     }
     for (const hdCoin of secp256k1Slip10HdCoins) {
-      out.push(
-        await makeSecp256k1HdWalletDisplay(
-          normalizedInput,
-          hdCoin.number,
-          hdCoin.name,
-          hdCoin.chainId,
-          hdCoin.codec,
-        ),
-      );
+      out.push(await makeSecp256k1HdWalletDisplay(normalizedInput, hdCoin));
     }
     out.push(await makeSimpleAddressDisplay(normalizedInput));
 
