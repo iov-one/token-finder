@@ -10,7 +10,6 @@ import {
   ChainId,
   PublicKeyBundle,
   PublicKeyBytes,
-  TxCodec,
 } from "@iov/bcp";
 import { bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";

@@ -58,7 +58,7 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
   } catch {}
 
   // https://github.com/iov-one/weave/blob/v0.9.3/x/nft/username/msg.go#L19
-  if (input.match(/^[a-z0-9\.,\+\-_@]{4,64}$/)) {
+  if (input.match(/^[a-z0-9.,+\-_@]{4,64}$/)) {
     out.add(InputProperties.BnsUsernameNft);
   }
 
