@@ -7,7 +7,7 @@ import { riseCodec } from "@iov/rise";
 export interface NetworkSettings {
   readonly name: string;
   readonly url: string;
-  readonly bnsNftSupported?: boolean;
+  readonly bnsUsernameSupported?: boolean;
 }
 
 export interface HdCoin {
@@ -19,13 +19,9 @@ export interface HdCoin {
 
 export const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
-    name: "Zebranet (bnsd)",
-    url: "https://bns.zebranet.iov.one",
-    bnsNftSupported: true,
-  },
-  {
-    name: "Zebranet (bcpd)",
-    url: "https://bcp.zebranet.iov.one",
+    name: "Kissnet (bnsd)",
+    url: "https://bns.kissnet.iov.one",
+    bnsUsernameSupported: true,
   },
 ];
 

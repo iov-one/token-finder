@@ -8,8 +8,8 @@ import {
   Algorithm,
   BlockchainConnection,
   ChainId,
-  PublicKeyBundle,
-  PublicKeyBytes,
+  PubkeyBundle,
+  PubkeyBytes,
 } from "@iov/bcp";
 import { bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
@@ -37,7 +37,7 @@ const priorityBech32Display = 10;
 const priorityWeaveAddressDisplay = 10;
 const priorityEthereumAddressDisplay = 10;
 const priorityBip39MnemonicDisplay = 11;
-const priorityBnsUsernameNftDisplay = 15;
+const priorityBnsUsernameDisplay = 15;
 const priorityHexDisplay = 20;
 
 const bcpConnections = new Map<string, Promise<BlockchainConnection>>();
@@ -223,12 +223,12 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
   };
 }
 
-export function makeBnsUsernameNftDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const displayId = `${input}#${network.name}-username-nft`;
-  const interpretedAs = `Username NFT on ${network.name}`;
+export function makeBnsUsernameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const displayId = `${input}#${network.name}-username`;
+  const interpretedAs = `Username on ${network.name}`;
   return {
     id: displayId,
-    priority: priorityBnsUsernameNftDisplay,
+    priority: priorityBnsUsernameDisplay,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bnsConnections.has(network.url)) {
@@ -241,8 +241,8 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
     renderData: (response: ReadonlyArray<BnsUsernameNft>) => {
       let data: JSX.Element;
       if (response.length > 0) {
-        const { id, owner, addresses } = response[0];
-        const addressElements = addresses.map(pair => (
+        const { id, owner, targets } = response[0];
+        const addressElements = targets.map(pair => (
           <span key={pair.chainId}>
             {printEllideMiddle(pair.chainId, 12)}: {addressLink(pair.address)}
             <br />
@@ -271,12 +271,12 @@ export function makeBnsUsernameNftDisplay(input: string, network: NetworkSetting
           </table>
         );
       } else {
-        data = <span className="inactive">NFT not found</span>;
+        data = <span className="inactive">Username not found</span>;
       }
       return {
         id: displayId,
         interpretedAs: interpretedAs,
-        priority: priorityBnsUsernameNftDisplay,
+        priority: priorityBnsUsernameDisplay,
         data: data,
       };
     },
@@ -377,7 +377,7 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
 }
 
 export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
-  const ed25519PubkeyBytes = Encoding.fromHex(input) as PublicKeyBytes;
+  const ed25519PubkeyBytes = Encoding.fromHex(input) as PubkeyBytes;
 
   const bnsAddress = bnsCodec.identityToAddress({
     chainId: "some-testnet" as ChainId,
@@ -411,7 +411,7 @@ function makeHdAddressesDisplay(
   interpretedAs: string,
   addresses: ReadonlyArray<{
     readonly path: string;
-    readonly pubkey: PublicKeyBundle;
+    readonly pubkey: PubkeyBundle;
     readonly address: Address;
   }>,
   addressLength: number,
@@ -443,7 +443,7 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
-    readonly pubkey: PublicKeyBundle;
+    readonly pubkey: PubkeyBundle;
     readonly address: Address;
   }> = [];
   for (let index = 0; index < 5; ++index) {
@@ -474,7 +474,7 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
-    readonly pubkey: PublicKeyBundle;
+    readonly pubkey: PubkeyBundle;
     readonly address: Address;
   }> = [];
   for (let a = 0; a < 5; ++a) {
@@ -508,7 +508,7 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
   // tslint:disable-next-line:readonly-array
   const addresses: Array<{
     readonly path: string;
-    readonly pubkey: PublicKeyBundle;
+    readonly pubkey: PubkeyBundle;
     readonly address: Address;
   }> = [];
   for (let a = 0; a < 5; ++a) {
