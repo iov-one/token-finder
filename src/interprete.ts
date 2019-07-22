@@ -24,7 +24,7 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
     return new Set();
   }
 
-  const out = new Set();
+  const out = new Set<InputProperties>();
 
   try {
     const rawData = Encoding.fromHex(input);
