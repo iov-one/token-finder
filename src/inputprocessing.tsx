@@ -4,6 +4,7 @@ import {
   makeBnsAddressDisplay,
   makeBnsUsernameDisplay,
   makeEd25519HdWalletDisplay,
+  makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,
   makeEthereumAddressDisplay,
   makeHexDisplay,
@@ -94,6 +95,9 @@ export async function processInput(input: string): Promise<ReadonlyArray<Display
     }
     if (properties.has(InputProperties.ByteLength32)) {
       out.push(makeEd25519PubkeyDisplay(normalizedInput));
+    }
+    if (properties.has(InputProperties.ByteLength64)) {
+      out.push(makeEd25519PrivkeyDisplay(normalizedInput));
     }
     out.push(makeHexDisplay(normalizedInput));
   }

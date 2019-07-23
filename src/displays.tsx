@@ -25,9 +25,10 @@ import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
 import { HdCoin, NetworkSettings } from "./settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
-const { toHex } = Encoding;
+const { fromHex, toHex } = Encoding;
 
 const priorityEd25519PubkeyDisplay = 7;
+const priorityEd25519PivkeyDisplay = 7;
 const priorityLiskLikePassphraseDisplay = 7;
 const priorityHdAddressesDisplay = 8;
 const priorityBnsAddressDisplay = 9;
@@ -401,6 +402,28 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
         <br />
         Rise: <Link to={"#" + riseAddress}>{riseAddress}</Link>
         <br />
+      </div>
+    ),
+  };
+}
+
+export function makeEd25519PrivkeyDisplay(input: string): StaticDisplay {
+  const seed = fromHex(input).slice(0, 32);
+  const pubkey = fromHex(input).slice(32, 64) as PubkeyBytes;
+
+  return {
+    id: `${input}#ed25519-privkey`,
+    interpretedAs: "Ed25519 private key (libsodium format)",
+    priority: priorityEd25519PivkeyDisplay,
+    data: (
+      <div>
+        <div className="pair">
+          <div className="pair-key">Seed:&nbsp;</div>
+          <div className="pair-value data">{toHex(seed)}</div>
+        </div>
+        <div>
+          Pubkey: <Link to={"#" + toHex(pubkey)}>{printEllideMiddle(toHex(pubkey), 40)}</Link>
+        </div>
       </div>
     ),
   };

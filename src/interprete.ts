@@ -9,6 +9,7 @@ export enum InputProperties {
   Bech32,
   ByteLength20,
   ByteLength32,
+  ByteLength64,
   EnglishMnemonic,
   EnglishMnemonic12Words,
   EthereumAddress,
@@ -34,6 +35,9 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
     }
     if (rawData.length === 32) {
       out.add(InputProperties.ByteLength32);
+    }
+    if (rawData.length === 64) {
+      out.add(InputProperties.ByteLength64);
     }
   } catch {}
 
