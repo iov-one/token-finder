@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/token-finder/static/css/main.0de8c659.chunk.css",
-    "main.js": "/token-finder/static/js/main.4fdc7b34.chunk.js",
-    "main.js.map": "/token-finder/static/js/main.4fdc7b34.chunk.js.map",
+    "main.js": "/token-finder/static/js/main.ac51d941.chunk.js",
+    "main.js.map": "/token-finder/static/js/main.ac51d941.chunk.js.map",
     "runtime~main.js": "/token-finder/static/js/runtime~main.92d21581.js",
     "runtime~main.js.map": "/token-finder/static/js/runtime~main.92d21581.js.map",
-    "static/js/2.220c6954.chunk.js": "/token-finder/static/js/2.220c6954.chunk.js",
-    "static/js/2.220c6954.chunk.js.map": "/token-finder/static/js/2.220c6954.chunk.js.map",
+    "static/js/2.2e2447e2.chunk.js": "/token-finder/static/js/2.2e2447e2.chunk.js",
+    "static/js/2.2e2447e2.chunk.js.map": "/token-finder/static/js/2.2e2447e2.chunk.js.map",
     "index.html": "/token-finder/index.html",
-    "precache-manifest.a61299153455d9381ce58dd33d74938c.js": "/token-finder/precache-manifest.a61299153455d9381ce58dd33d74938c.js",
+    "precache-manifest.af7cfc0923a154771062655b56fd549a.js": "/token-finder/precache-manifest.af7cfc0923a154771062655b56fd549a.js",
     "service-worker.js": "/token-finder/service-worker.js",
     "static/css/main.0de8c659.chunk.css.map": "/token-finder/static/css/main.0de8c659.chunk.css.map"
   }
