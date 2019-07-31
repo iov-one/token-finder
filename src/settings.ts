@@ -19,6 +19,11 @@ export interface HdCoin {
 
 export const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
+    name: "Lovenet (bnsd)",
+    url: "https://rpc.lovenet.iov.one",
+    bnsUsernameSupported: true,
+  },
+  {
     name: "Kissnet (bnsd)",
     url: "https://bns.kissnet.iov.one",
     bnsUsernameSupported: true,
