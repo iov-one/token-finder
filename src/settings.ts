@@ -23,11 +23,6 @@ export const iovTestnets: ReadonlyArray<NetworkSettings> = [
     url: "https://rpc.lovenet.iov.one",
     bnsUsernameSupported: true,
   },
-  {
-    name: "Kissnet (bnsd)",
-    url: "https://bns.kissnet.iov.one",
-    bnsUsernameSupported: true,
-  },
 ];
 
 export const liskNetworks: ReadonlyArray<NetworkSettings> = [
