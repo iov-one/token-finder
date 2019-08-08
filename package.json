@@ -5,6 +5,25 @@
   "author": "IOV SAS <admin@iov.one>",
   "license": "Apache-2.0",
   "homepage": "https://iov-one.github.io/token-finder/",
+  "scripts": {
+    "lint": "tslint -t verbose --project .",
+    "format": "prettier --write --loglevel warn \"./src/**/*.{ts,tsx}\"",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@iov/bcp": "^0.16.1",
     "@iov/bns": "^0.16.1",
@@ -25,25 +44,6 @@
     "react-scripts": "^3.0.1",
     "typescript": "~3.4"
   },
-  "scripts": {
-    "lint": "tslint -t verbose --project .",
-    "format": "prettier --write --loglevel warn \"./src/**/*.{ts,tsx}\"",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
     "gh-pages": "^2.0.1",
     "prettier": "^1.18.2",
