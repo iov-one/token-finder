@@ -15,7 +15,7 @@ export function printAmount(amount: Amount): string {
   return `${whole}.${trimmedFractional}${narrowNoBreakSpace}${amount.tokenTicker}`;
 }
 
-export function printPath(path: ReadonlyArray<Slip10RawIndex>): string {
+export function printPath(path: readonly Slip10RawIndex[]): string {
   const components = path.map(ri => (ri.isHardened() ? `${ri.toNumber() - 2 ** 31}'` : `${ri.toNumber()}`));
   return `m/${components.join("/")}`;
 }

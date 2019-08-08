@@ -50,7 +50,7 @@ export function isInteractiveDisplay(display: Display): display is InteractiveDi
   );
 }
 
-export async function processInput(input: string): Promise<ReadonlyArray<Display>> {
+export async function processInput(input: string): Promise<readonly Display[]> {
   const normalizedInput = input.trim();
 
   const properties = interprete(normalizedInput);

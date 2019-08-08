@@ -5,6 +5,7 @@ import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
 
 export enum InputProperties {
+  /* eslint-disable no-shadow */
   Hex,
   Bech32,
   ByteLength20,
@@ -18,6 +19,7 @@ export enum InputProperties {
   BnsUsername,
   LiskAddress,
   RiseAddress,
+  /* eslint-enable no-shadow */
 }
 
 export function interprete(input: string): ReadonlySet<InputProperties> {

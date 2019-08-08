@@ -1,7 +1,8 @@
+import "./App.css";
+
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import "./App.css";
 import { isInteractiveDisplay, processInput, StaticDisplay } from "./inputprocessing";
 
 interface TestProps {
@@ -12,14 +13,14 @@ interface TestProps {
 
 interface TestState {
   readonly input: string;
-  readonly display: ReadonlyArray<StaticDisplay>;
+  readonly display: readonly StaticDisplay[];
 }
 
 class App extends React.Component<TestProps, TestState> {
   // tslint:disable-next-line:readonly-array
   private readonly timeouts: NodeJS.Timeout[] = [];
 
-  constructor(props: TestProps) {
+  public constructor(props: TestProps) {
     super(props);
     this.state = {
       input: "",
@@ -132,7 +133,7 @@ class App extends React.Component<TestProps, TestState> {
     }
 
     for (const interactiveDisplay of out.filter(isInteractiveDisplay)) {
-      const job = () => {
+      const job = (): void => {
         interactiveDisplay
           .getData()
           .then(data => {

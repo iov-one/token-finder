@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 import {
   Account,
   AccountQuery,
@@ -19,6 +16,8 @@ import { toChecksummedAddress } from "@iov/ethereum";
 import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import { printAmount, printPath } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
@@ -61,6 +60,7 @@ function makeBnsAccountDisplay(
       if (!bnsConnections.has(network.url)) {
         bnsConnections.set(network.url, BnsConnection.establish(network.url));
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const connection = await bnsConnections.get(network.url)!;
       const response = await connection.getAccount(query);
       return response;
@@ -125,6 +125,7 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
       if (!bcpConnections.has(network.url)) {
         bcpConnections.set(network.url, LiskConnection.establish(network.url));
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const connection = await bcpConnections.get(network.url)!;
       const response = await connection.getAccount({ address: input as Address });
       return response;
@@ -180,6 +181,7 @@ export function makeRiseAddressDisplay(input: string, network: NetworkSettings):
       if (!bcpConnections.has(network.url)) {
         bcpConnections.set(network.url, RiseConnection.establish(network.url));
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const connection = await bcpConnections.get(network.url)!;
       const response = await connection.getAccount({ address: input as Address });
       return response;
@@ -235,11 +237,12 @@ export function makeBnsUsernameDisplay(input: string, network: NetworkSettings):
       if (!bnsConnections.has(network.url)) {
         bnsConnections.set(network.url, BnsConnection.establish(network.url));
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const connection = await bnsConnections.get(network.url)!;
       const response = await connection.getUsernames({ username: input });
       return response;
     },
-    renderData: (response: ReadonlyArray<BnsUsernameNft>) => {
+    renderData: (response: readonly BnsUsernameNft[]) => {
       let data: JSX.Element;
       if (response.length > 0) {
         const { id, owner, targets } = response[0];
@@ -435,11 +438,11 @@ export function makeEd25519PrivkeyDisplay(input: string): StaticDisplay {
 function makeHdAddressesDisplay(
   id: string,
   interpretedAs: string,
-  addresses: ReadonlyArray<{
+  addresses: readonly {
     readonly path: string;
     readonly pubkey: PubkeyBundle;
     readonly address: Address;
-  }>,
+  }[],
   addressLength: number,
   deprecated?: boolean,
 ): StaticDisplay {
@@ -467,11 +470,11 @@ export async function makeSimpleAddressDisplay(input: string): Promise<StaticDis
   const chainId = "some-testnet" as ChainId;
 
   // tslint:disable-next-line:readonly-array
-  const addresses: Array<{
+  const addresses: {
     readonly path: string;
     readonly pubkey: PubkeyBundle;
     readonly address: Address;
-  }> = [];
+  }[] = [];
   for (let index = 0; index < 5; ++index) {
     const path = HdPaths.simpleAddress(index);
     const identity = await wallet.createIdentity(chainId, path);
@@ -498,13 +501,13 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
   // tslint:disable-next-line:readonly-array
-  const addresses: Array<{
+  const addresses: {
     readonly path: string;
     readonly pubkey: PubkeyBundle;
     readonly address: Address;
-  }> = [];
+  }[] = [];
   for (let a = 0; a < 5; ++a) {
-    const path: ReadonlyArray<Slip10RawIndex> = [
+    const path: readonly Slip10RawIndex[] = [
       Slip10RawIndex.hardened(44),
       Slip10RawIndex.hardened(coinNumber),
       Slip10RawIndex.hardened(a),
@@ -532,13 +535,13 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
   const wallet = Secp256k1HdWallet.fromMnemonic(input);
 
   // tslint:disable-next-line:readonly-array
-  const addresses: Array<{
+  const addresses: {
     readonly path: string;
     readonly pubkey: PubkeyBundle;
     readonly address: Address;
-  }> = [];
+  }[] = [];
   for (let a = 0; a < 5; ++a) {
-    const path: ReadonlyArray<Slip10RawIndex> = [
+    const path: readonly Slip10RawIndex[] = [
       Slip10RawIndex.hardened(44),
       Slip10RawIndex.hardened(coinNumber),
       Slip10RawIndex.hardened(0),

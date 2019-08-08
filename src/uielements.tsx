@@ -1,7 +1,6 @@
+import { Address } from "@iov/bcp";
 import React from "react";
 import { Link } from "react-router-dom";
-
-import { Address } from "@iov/bcp";
 
 export function ellideMiddle(str: string, maxOutLen: number): string {
   if (str.length <= maxOutLen) {

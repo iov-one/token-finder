@@ -22,7 +22,7 @@ export const iovChainIds = {
   mainnet: "iov-mainnet" as ChainId,
 };
 
-export const iovTestnets: ReadonlyArray<NetworkSettings> = [
+export const iovTestnets: readonly NetworkSettings[] = [
   {
     name: "Lovenet (bnsd)",
     url: "https://rpc.lovenet.iov.one",
@@ -30,7 +30,7 @@ export const iovTestnets: ReadonlyArray<NetworkSettings> = [
   },
 ];
 
-export const liskNetworks: ReadonlyArray<NetworkSettings> = [
+export const liskNetworks: readonly NetworkSettings[] = [
   {
     name: "Lisk Testnet",
     url: "https://testnet.lisk.io",
@@ -41,7 +41,7 @@ export const liskNetworks: ReadonlyArray<NetworkSettings> = [
   },
 ];
 
-export const riseNetworks: ReadonlyArray<NetworkSettings> = [
+export const riseNetworks: readonly NetworkSettings[] = [
   {
     name: "RISE Testnet",
     url: "https://twallet.rise.vision",
@@ -52,7 +52,7 @@ export const riseNetworks: ReadonlyArray<NetworkSettings> = [
   },
 ];
 
-export const accountBasedSlip10HdCoins: ReadonlyArray<HdCoin> = [
+export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
   {
     name: "IOV",
     number: 234,
@@ -76,7 +76,7 @@ export const accountBasedSlip10HdCoins: ReadonlyArray<HdCoin> = [
   },
 ];
 
-export const secp256k1Slip10HdCoins: ReadonlyArray<HdCoin> = [
+export const secp256k1Slip10HdCoins: readonly HdCoin[] = [
   {
     name: "Ethereum",
     number: 60,
