@@ -29,8 +29,8 @@ const { fromHex, toHex } = Encoding;
 
 const priorityEd25519PubkeyDisplay = 7;
 const priorityEd25519PivkeyDisplay = 7;
-const priorityLiskLikePassphraseDisplay = 7;
-const priorityHdAddressesDisplay = 8;
+const priorityHdAddressesDisplay = 7;
+const priorityLiskLikePassphraseDisplay = 8;
 const priorityBnsAddressDisplay = 9;
 const priorityLiskAddressDisplay = 10;
 const priorityRiseAddressDisplay = 10;
