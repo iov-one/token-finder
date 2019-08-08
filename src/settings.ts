@@ -17,6 +17,11 @@ export interface HdCoin {
   readonly codec: TxCodec;
 }
 
+export const iovChainIds = {
+  testnet: "iov-lovenet" as ChainId, // Any testnet is okay here. Used for address calculation only
+  mainnet: "iov-mainnet" as ChainId,
+};
+
 export const iovTestnets: ReadonlyArray<NetworkSettings> = [
   {
     name: "Lovenet (bnsd)",

@@ -22,7 +22,7 @@ import { RiseConnection } from "@iov/rise";
 
 import { printAmount, printPath } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
-import { HdCoin, NetworkSettings } from "./settings";
+import { HdCoin, iovChainIds, NetworkSettings } from "./settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
 const { fromHex, toHex } = Encoding;
@@ -380,12 +380,13 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
 export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   const ed25519PubkeyBytes = Encoding.fromHex(input) as PubkeyBytes;
 
-  const bnsAddress = bnsCodec.identityToAddress({
-    chainId: "some-testnet" as ChainId,
-    pubkey: {
-      algo: Algorithm.Ed25519,
-      data: ed25519PubkeyBytes,
-    },
+  const iovTestAddress = bnsCodec.identityToAddress({
+    chainId: iovChainIds.testnet,
+    pubkey: { algo: Algorithm.Ed25519, data: ed25519PubkeyBytes },
+  });
+  const iovMainAddress = bnsCodec.identityToAddress({
+    chainId: iovChainIds.mainnet,
+    pubkey: { algo: Algorithm.Ed25519, data: ed25519PubkeyBytes },
   });
   const liskAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "L");
   const riseAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "R");
@@ -396,7 +397,9 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
     priority: priorityEd25519PubkeyDisplay,
     data: (
       <div>
-        BNS: <Link to={"#" + bnsAddress}>{bnsAddress}</Link>
+        IOV main: <Link to={"#" + iovMainAddress}>{iovMainAddress}</Link>
+        <br />
+        IOV test: <Link to={"#" + iovTestAddress}>{iovTestAddress}</Link>
         <br />
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
         <br />
