@@ -63,7 +63,8 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
     }
   } catch {}
 
-  if (input.match(/^[a-z0-9.,+\-_@]{4,64}\*iov$/)) {
+  // TODO: update min length to 3 starting with weave 0.21
+  if (input.match(/^[a-z0-9.\-_]{1,64}\*iov$/)) {
     out.add(InputProperties.BnsUsername);
   }
 
