@@ -63,13 +63,30 @@ function makeBnsAccountDisplay(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const connection = await bnsConnections.get(network.url)!;
       const response = await connection.getAccount(query);
-      return response;
+      if (response) {
+        const names = await connection.getUsernames({ owner: response.address });
+        return {
+          account: response,
+          names: names,
+        };
+      } else {
+        return undefined;
+      }
     },
-    renderData: (response: Account | undefined) => {
+    renderData: (
+      response: { readonly account: Account; readonly names: readonly BnsUsernameNft[] } | undefined,
+    ) => {
       let data: JSX.Element;
       if (response) {
-        const { address, pubkey, balance } = response;
+        const { address, pubkey, balance } = response.account;
         const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
+
+        const nameElements = response.names.map(name => (
+          <span key={name.id}>
+            <Link to={"#" + name.id}>{ellideMiddle(name.id, 40)}</Link>
+            <br />
+          </span>
+        ));
         data = (
           <table>
             <tbody>
@@ -90,6 +107,10 @@ function makeBnsAccountDisplay(
               <tr>
                 <td>Balance</td>
                 <td>{balance.map(printAmount).join(", ")}</td>
+              </tr>
+              <tr>
+                <td>Names</td>
+                <td>{nameElements}</td>
               </tr>
             </tbody>
           </table>
