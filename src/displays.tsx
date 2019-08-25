@@ -8,7 +8,7 @@ import {
   PubkeyBundle,
   PubkeyBytes,
 } from "@iov/bcp";
-import { bnsCodec, BnsConnection, BnsUsernameNft } from "@iov/bns";
+import { bnsCodec, BnsConnection, BnsUsernameNft, pubkeyToAddress } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 
 import { printAmount, printPath } from "./bcphelpers";
 import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
-import { HdCoin, iovChainIds, NetworkSettings } from "./settings";
+import { HdCoin, NetworkSettings } from "./settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 
 const { fromHex, toHex } = Encoding;
@@ -402,18 +402,15 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
 }
 
 export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
-  const ed25519PubkeyBytes = Encoding.fromHex(input) as PubkeyBytes;
+  const pubkey: PubkeyBundle = {
+    algo: Algorithm.Ed25519,
+    data: Encoding.fromHex(input) as PubkeyBytes,
+  };
 
-  const iovTestAddress = bnsCodec.identityToAddress({
-    chainId: iovChainIds.testnet,
-    pubkey: { algo: Algorithm.Ed25519, data: ed25519PubkeyBytes },
-  });
-  const iovMainAddress = bnsCodec.identityToAddress({
-    chainId: iovChainIds.mainnet,
-    pubkey: { algo: Algorithm.Ed25519, data: ed25519PubkeyBytes },
-  });
-  const liskAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "L");
-  const riseAddress = Derivation.pubkeyToAddress(ed25519PubkeyBytes, "R");
+  const iovTestAddress = pubkeyToAddress(pubkey, "tiov");
+  const iovMainAddress = pubkeyToAddress(pubkey, "iov");
+  const liskAddress = Derivation.pubkeyToAddress(pubkey.data, "L");
+  const riseAddress = Derivation.pubkeyToAddress(pubkey.data, "R");
 
   return {
     id: `${input}#ed25519-pubkey`,
