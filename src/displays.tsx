@@ -43,7 +43,7 @@ const priorityHexDisplay = 20;
 const bcpConnections = new Map<string, Promise<BlockchainConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
 
-function makeBnsAccountDisplay(
+function makeBnsAccountDisplayImpl(
   id: string,
   priority: number,
   interpretedAs: string,
@@ -123,10 +123,10 @@ function makeBnsAccountDisplay(
   };
 }
 
-export function makeBnsAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-bns-address`;
-  const interpretedAs = `Address on ${network.name}`;
-  return makeBnsAccountDisplay(
+export function makeBnsAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const id = `${input}#${network.name}-bns-account`;
+  const interpretedAs = `Account on ${network.name}`;
+  return makeBnsAccountDisplayImpl(
     id,
     priorityBnsAddressDisplay,
     interpretedAs,
@@ -135,9 +135,9 @@ export function makeBnsAddressDisplay(input: string, network: NetworkSettings): 
   );
 }
 
-export function makeLiskAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-lisk-address`;
-  const interpretedAs = `Address on ${network.name}`;
+export function makeLiskAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const id = `${input}#${network.name}-lisk-account`;
+  const interpretedAs = `Account on ${network.name}`;
   return {
     id: id,
     priority: priorityLiskAddressDisplay,
@@ -191,9 +191,9 @@ export function makeLiskAddressDisplay(input: string, network: NetworkSettings):
   };
 }
 
-export function makeRiseAddressDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-rise-address`;
-  const interpretedAs = `Address on ${network.name}`;
+export function makeRiseAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+  const id = `${input}#${network.name}-rise-account`;
+  const interpretedAs = `Account on ${network.name}`;
   return {
     id: id,
     priority: priorityRiseAddressDisplay,

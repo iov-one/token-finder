@@ -1,16 +1,16 @@
 import {
   makeBech32Display,
   makeBip39MnemonicDisplay,
-  makeBnsAddressDisplay,
+  makeBnsAccountDisplay,
   makeBnsUsernameDisplay,
   makeEd25519HdWalletDisplay,
   makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,
   makeEthereumAddressDisplay,
   makeHexDisplay,
-  makeLiskAddressDisplay,
+  makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
-  makeRiseAddressDisplay,
+  makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
   makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
@@ -59,7 +59,7 @@ export async function processInput(input: string): Promise<readonly Display[]> {
 
   if (properties.has(InputProperties.IovAddressTestnet)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsAddressDisplay(normalizedInput, network));
+      out.push(makeBnsAccountDisplay(normalizedInput, network));
     }
   }
 
@@ -104,13 +104,13 @@ export async function processInput(input: string): Promise<readonly Display[]> {
 
   if (properties.has(InputProperties.LiskAddress)) {
     for (const network of liskNetworks) {
-      out.push(makeLiskAddressDisplay(normalizedInput, network));
+      out.push(makeLiskAccountDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.RiseAddress)) {
     for (const network of riseNetworks) {
-      out.push(makeRiseAddressDisplay(normalizedInput, network));
+      out.push(makeRiseAccountDisplay(normalizedInput, network));
     }
   }
 
