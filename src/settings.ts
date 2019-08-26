@@ -24,7 +24,12 @@ export const iovChainIds = {
 
 export const iovTestnets: readonly NetworkSettings[] = [
   {
-    name: "Lovenet (bnsd)",
+    name: "Boarnet 🐗",
+    url: "https://rpc.boarnet.iov.one",
+    bnsUsernameSupported: true,
+  },
+  {
+    name: "Lovenet 😍",
     url: "https://rpc.lovenet.iov.one",
     bnsUsernameSupported: true,
   },
