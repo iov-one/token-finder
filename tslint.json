@@ -9,6 +9,7 @@
   "rules": {
     "array-type": false,
     "comment-format": false,
+    "curly": false,
     "interface-name": [true, "never-prefix"],
     "max-classes-per-file": false,
     "no-class": false,
