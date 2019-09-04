@@ -12,7 +12,7 @@ import { bnsCodec, BnsConnection, BnsUsernameNft, pubkeyToAddress } from "@iov/b
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
-import { toChecksummedAddress } from "@iov/ethereum";
+import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
 import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
@@ -27,6 +27,7 @@ import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
 const { fromHex, toHex } = Encoding;
 
 const priorityEd25519PubkeyDisplay = 7;
+const prioritySecp256k1PubkeyDisplay = 7;
 const priorityEd25519PivkeyDisplay = 7;
 const priorityHdAddressesDisplay = 7;
 const priorityLiskLikePassphraseDisplay = 8;
@@ -425,6 +426,27 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
         <br />
         Rise: <Link to={"#" + riseAddress}>{riseAddress}</Link>
+        <br />
+      </div>
+    ),
+  };
+}
+
+export function makeSecp256k1PubkeyDisplay(input: string): StaticDisplay {
+  const pubkey: PubkeyBundle = {
+    algo: Algorithm.Secp256k1,
+    data: Encoding.fromHex(input) as PubkeyBytes,
+  };
+
+  const ethereumAddress = ethereumPubkeyToAddress(pubkey);
+
+  return {
+    id: `${input}#secp256k1-pubkey`,
+    interpretedAs: "Secp256k1 public key",
+    priority: prioritySecp256k1PubkeyDisplay,
+    data: (
+      <div>
+        Ethereum: <Link to={"#" + ethereumAddress}>{ethereumAddress}</Link>
         <br />
       </div>
     ),

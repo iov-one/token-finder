@@ -12,6 +12,7 @@ import {
   makeLiskLikePassphraseDisplay,
   makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
+  makeSecp256k1PubkeyDisplay,
   makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
 } from "./displays";
@@ -98,6 +99,9 @@ export async function processInput(input: string): Promise<readonly Display[]> {
     }
     if (properties.has(InputProperties.ByteLength64)) {
       out.push(makeEd25519PrivkeyDisplay(normalizedInput));
+    }
+    if (properties.has(InputProperties.ByteLength65) && normalizedInput.startsWith("04")) {
+      out.push(makeSecp256k1PubkeyDisplay(normalizedInput));
     }
     out.push(makeHexDisplay(normalizedInput));
   }

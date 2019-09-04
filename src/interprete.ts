@@ -11,6 +11,7 @@ export enum InputProperties {
   ByteLength20,
   ByteLength32,
   ByteLength64,
+  ByteLength65,
   EnglishMnemonic,
   EnglishMnemonic12Words,
   EthereumAddress,
@@ -32,15 +33,10 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
   try {
     const rawData = Encoding.fromHex(input);
     out.add(InputProperties.Hex);
-    if (rawData.length === 20) {
-      out.add(InputProperties.ByteLength20);
-    }
-    if (rawData.length === 32) {
-      out.add(InputProperties.ByteLength32);
-    }
-    if (rawData.length === 64) {
-      out.add(InputProperties.ByteLength64);
-    }
+    if (rawData.length === 20) out.add(InputProperties.ByteLength20);
+    if (rawData.length === 32) out.add(InputProperties.ByteLength32);
+    if (rawData.length === 64) out.add(InputProperties.ByteLength64);
+    if (rawData.length === 65) out.add(InputProperties.ByteLength65);
   } catch {}
 
   try {
