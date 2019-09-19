@@ -22,6 +22,17 @@ export const iovChainIds = {
   mainnet: "iov-mainnet" as ChainId,
 };
 
+const iovDevnets: readonly NetworkSettings[] =
+  process.env.NODE_ENV === "development"
+    ? [
+        {
+          name: "Devnet",
+          url: "http://localhost:23456/",
+          bnsUsernameSupported: true,
+        },
+      ]
+    : [];
+
 export const iovTestnets: readonly NetworkSettings[] = [
   {
     name: "Boarnet 🐗",
@@ -33,6 +44,7 @@ export const iovTestnets: readonly NetworkSettings[] = [
     url: "https://rpc.lovenet.iov.one",
     bnsUsernameSupported: true,
   },
+  ...iovDevnets,
 ];
 
 export const liskNetworks: readonly NetworkSettings[] = [
