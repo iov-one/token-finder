@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/token-finder/static/css/main.5b431d1d.chunk.css",
-    "main.js": "/token-finder/static/js/main.062ab0d6.chunk.js",
-    "main.js.map": "/token-finder/static/js/main.062ab0d6.chunk.js.map",
+    "main.js": "/token-finder/static/js/main.88246b8a.chunk.js",
+    "main.js.map": "/token-finder/static/js/main.88246b8a.chunk.js.map",
     "runtime~main.js": "/token-finder/static/js/runtime~main.92d21581.js",
     "runtime~main.js.map": "/token-finder/static/js/runtime~main.92d21581.js.map",
     "static/js/2.1f41557f.chunk.js": "/token-finder/static/js/2.1f41557f.chunk.js",
     "static/js/2.1f41557f.chunk.js.map": "/token-finder/static/js/2.1f41557f.chunk.js.map",
     "index.html": "/token-finder/index.html",
-    "precache-manifest.27b7541747f3f33ebcf0f99a306d422e.js": "/token-finder/precache-manifest.27b7541747f3f33ebcf0f99a306d422e.js",
+    "precache-manifest.30fba6e50be9ec7320f144050d79ac34.js": "/token-finder/precache-manifest.30fba6e50be9ec7320f144050d79ac34.js",
     "service-worker.js": "/token-finder/service-worker.js",
     "static/css/main.5b431d1d.chunk.css.map": "/token-finder/static/css/main.5b431d1d.chunk.css.map"
   }
