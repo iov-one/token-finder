@@ -35,6 +35,11 @@ const iovDevnets: readonly NetworkSettings[] =
 
 export const iovTestnets: readonly NetworkSettings[] = [
   {
+    name: "Catnet 🐈",
+    url: "https://rpc-private-a-vip-catnet.iov.one",
+    bnsUsernameSupported: true,
+  },
+  {
     name: "Boarnet 🐗",
     url: "https://rpc.boarnet.iov.one",
     bnsUsernameSupported: true,
