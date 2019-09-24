@@ -65,7 +65,7 @@ export async function processInput(input: string): Promise<readonly Display[]> {
   }
 
   if (properties.has(InputProperties.BnsUsername)) {
-    for (const network of iovTestnets.filter(testnet => !!testnet.bnsUsernameSupported)) {
+    for (const network of iovTestnets) {
       out.push(makeBnsUsernameDisplay(normalizedInput, network));
     }
   }

@@ -7,7 +7,6 @@ import { riseCodec } from "@iov/rise";
 export interface NetworkSettings {
   readonly name: string;
   readonly url: string;
-  readonly bnsUsernameSupported?: boolean;
 }
 
 export interface HdCoin {
@@ -28,7 +27,6 @@ const iovDevnets: readonly NetworkSettings[] =
         {
           name: "Devnet",
           url: "http://localhost:23456/",
-          bnsUsernameSupported: true,
         },
       ]
     : [];
@@ -37,17 +35,14 @@ export const iovTestnets: readonly NetworkSettings[] = [
   {
     name: "Catnet 🐈",
     url: "https://rpc-private-a-vip-catnet.iov.one",
-    bnsUsernameSupported: true,
   },
   {
     name: "Boarnet 🐗",
     url: "https://rpc.boarnet.iov.one",
-    bnsUsernameSupported: true,
   },
   {
     name: "Lovenet 😍",
     url: "https://rpc.lovenet.iov.one",
-    bnsUsernameSupported: true,
   },
   ...iovDevnets,
 ];
