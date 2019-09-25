@@ -33,6 +33,10 @@ const iovDevnets: readonly NetworkSettings[] =
 
 export const iovTestnets: readonly NetworkSettings[] = [
   {
+    name: "Babynet 👶",
+    url: "https://rpc-private-a-vip-babynet.iov.one",
+  },
+  {
     name: "Catnet 🐈",
     url: "https://rpc-private-a-vip-catnet.iov.one",
   },
