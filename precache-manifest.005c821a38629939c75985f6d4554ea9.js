@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f9955283c3139a25fdd4e6292c973238",
+    "revision": "26b0ac4fd839613957eed0e7101096e7",
     "url": "/token-finder/index.html"
   },
   {
-    "revision": "da69a46966063393ed59",
+    "revision": "7f38ddf86ff3693b892e",
     "url": "/token-finder/static/css/main.5b431d1d.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/token-finder/static/js/2.1f41557f.chunk.js"
   },
   {
-    "revision": "da69a46966063393ed59",
-    "url": "/token-finder/static/js/main.46eca0c0.chunk.js"
+    "revision": "7f38ddf86ff3693b892e",
+    "url": "/token-finder/static/js/main.690dca76.chunk.js"
   },
   {
     "revision": "1ac268f59dc37cda5ae9",
