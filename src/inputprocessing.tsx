@@ -1,4 +1,5 @@
 import {
+  Display,
   makeBech32Display,
   makeBip39MnemonicDisplay,
   makeBnsAccountDisplay,
@@ -14,6 +15,7 @@ import {
   makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
   makeWeaveAddressDisplay,
+  makeWeaveConditionDisplay,
 } from "./displays";
 import { InputProperties, interprete } from "./interprete";
 import {
@@ -23,32 +25,6 @@ import {
   riseNetworks,
   secp256k1Slip10HdCoins,
 } from "./settings";
-
-export interface StaticDisplay {
-  readonly id: string;
-  readonly priority: number;
-  readonly deprecated?: boolean;
-  readonly interpretedAs: string;
-  readonly data: JSX.Element;
-}
-
-export interface InteractiveDisplay {
-  readonly id: string;
-  readonly priority: number;
-  readonly deprecated?: boolean;
-  readonly interpretedAs: string;
-  readonly getData: () => Promise<any>;
-  readonly renderData: (data: any) => StaticDisplay;
-}
-
-export type Display = StaticDisplay | InteractiveDisplay;
-
-export function isInteractiveDisplay(display: Display): display is InteractiveDisplay {
-  return (
-    typeof (display as InteractiveDisplay).getData === "function" &&
-    typeof (display as InteractiveDisplay).renderData === "function"
-  );
-}
 
 export async function processInput(input: string): Promise<readonly Display[]> {
   const normalizedInput = input.trim();
@@ -118,6 +94,10 @@ export async function processInput(input: string): Promise<readonly Display[]> {
 
   if (properties.has(InputProperties.EthereumAddress)) {
     out.push(makeEthereumAddressDisplay(normalizedInput));
+  }
+
+  if (properties.has(InputProperties.WeaveCondition)) {
+    out.push(makeWeaveConditionDisplay(normalizedInput));
   }
 
   out.sort((a, b) => a.priority - b.priority);

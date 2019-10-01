@@ -20,8 +20,11 @@ export enum InputProperties {
   BnsUsername,
   LiskAddress,
   RiseAddress,
+  WeaveCondition,
   /* eslint-enable no-shadow */
 }
+
+export const weaveConditionRegex = /^cond:([a-zA-Z]+)\/([a-zA-Z]+)\/(([a-fA-F0-9]{2})+)$/;
 
 export function interprete(input: string): ReadonlySet<InputProperties> {
   if (input.length === 0) {
@@ -74,6 +77,10 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
 
   if (ethereumCodec.isValidAddress(input)) {
     out.add(InputProperties.EthereumAddress);
+  }
+
+  if (input.match(weaveConditionRegex)) {
+    out.add(InputProperties.WeaveCondition);
   }
 
   return out;

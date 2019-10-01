@@ -18,10 +18,10 @@ import { RiseConnection } from "@iov/rise";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { printAmount, printPath } from "./bcphelpers";
-import { InteractiveDisplay, StaticDisplay } from "./inputprocessing";
-import { HdCoin, NetworkSettings } from "./settings";
-import { addressLink, ellideMiddle, printEllideMiddle } from "./uielements";
+import { printAmount, printPath } from "../bcphelpers";
+import { HdCoin, NetworkSettings } from "../settings";
+import { addressLink, ellideMiddle, printEllideMiddle } from "../uielements";
+import { InteractiveDisplay, StaticDisplay } from ".";
 
 const { fromHex, toHex } = Encoding;
 

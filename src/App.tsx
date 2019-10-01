@@ -3,7 +3,8 @@ import "./App.css";
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import { isInteractiveDisplay, processInput, StaticDisplay } from "./inputprocessing";
+import { isInteractiveDisplay, StaticDisplay } from "./displays";
+import { processInput } from "./inputprocessing";
 
 interface TestProps {
   readonly location: any;
