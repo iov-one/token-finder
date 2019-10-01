@@ -30,7 +30,8 @@ class App extends React.Component<TestProps, TestState> {
 
     this.props.history.listen((location: any) => {
       const hashQuery: string = location.hash.slice(1);
-      this.handleQuery(hashQuery);
+      const query = decodeURIComponent(hashQuery);
+      this.handleQuery(query);
     });
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +40,6 @@ class App extends React.Component<TestProps, TestState> {
   public componentDidMount(): void {
     const hashQuery: string = this.props.location.hash.slice(1);
     const query = decodeURIComponent(hashQuery);
-    console.log("Initial query", query);
     this.handleQuery(query);
   }
 
