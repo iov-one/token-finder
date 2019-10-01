@@ -28,7 +28,7 @@ class App extends React.Component<TestProps, TestState> {
       display: [],
     };
 
-    this.props.history.listen((location: any, action: any) => {
+    this.props.history.listen((location: any) => {
       const hashQuery: string = location.hash.slice(1);
       this.handleQuery(hashQuery);
     });

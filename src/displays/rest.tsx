@@ -49,7 +49,7 @@ function makeBnsAccountDisplayImpl(
   interpretedAs: string,
   query: AccountQuery,
   network: NetworkSettings,
-  deprecated: boolean = false,
+  deprecated = false,
 ): InteractiveDisplay {
   return {
     id: id,
