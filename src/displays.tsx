@@ -4,16 +4,15 @@ import {
   Address,
   Algorithm,
   BlockchainConnection,
-  ChainId,
   PubkeyBundle,
   PubkeyBytes,
 } from "@iov/bcp";
-import { bnsCodec, BnsConnection, BnsUsernameNft, pubkeyToAddress } from "@iov/bns";
+import { BnsConnection, BnsUsernameNft, pubkeyToAddress } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
 import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
 import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
-import { Ed25519HdWallet, HdPaths, Secp256k1HdWallet } from "@iov/keycontrol";
+import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
 import { RiseConnection } from "@iov/rise";
 import React from "react";
@@ -501,38 +500,6 @@ function makeHdAddressesDisplay(
     deprecated: deprecated,
     data: <div>{rows}</div>,
   };
-}
-
-export async function makeSimpleAddressDisplay(input: string): Promise<StaticDisplay> {
-  const wallet = Ed25519HdWallet.fromMnemonic(input);
-
-  // any testnet leads to "tiov" prefixes
-  const chainId = "some-testnet" as ChainId;
-
-  // tslint:disable-next-line:readonly-array
-  const addresses: {
-    readonly path: string;
-    readonly pubkey: PubkeyBundle;
-    readonly address: Address;
-  }[] = [];
-  for (let index = 0; index < 5; ++index) {
-    const path = HdPaths.simpleAddress(index);
-    const identity = await wallet.createIdentity(chainId, path);
-    const address = bnsCodec.identityToAddress(identity);
-    addresses.push({
-      path: `4804438'/${index}'`,
-      pubkey: identity.pubkey,
-      address: address,
-    });
-  }
-
-  return makeHdAddressesDisplay(
-    `${input}#hd-wallet-simple-address`,
-    `Simple Address HD Wallet`,
-    addresses,
-    21,
-    true,
-  );
 }
 
 export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): Promise<StaticDisplay> {

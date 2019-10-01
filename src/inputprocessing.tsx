@@ -13,7 +13,6 @@ import {
   makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
-  makeSimpleAddressDisplay,
   makeWeaveAddressDisplay,
 } from "./displays";
 import { InputProperties, interprete } from "./interprete";
@@ -79,7 +78,6 @@ export async function processInput(input: string): Promise<readonly Display[]> {
     for (const hdCoin of secp256k1Slip10HdCoins) {
       out.push(await makeSecp256k1HdWalletDisplay(normalizedInput, hdCoin));
     }
-    out.push(await makeSimpleAddressDisplay(normalizedInput));
 
     if (properties.has(InputProperties.EnglishMnemonic12Words)) {
       out.push(await makeLiskLikePassphraseDisplay(normalizedInput));
