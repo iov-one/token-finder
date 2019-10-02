@@ -2,7 +2,7 @@ import { Bech32, Encoding } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { proirities, StaticDisplay } from ".";
+import { priorities, StaticDisplay } from ".";
 
 export function makeWeaveAddressDisplay(input: string): StaticDisplay {
   const inputData = Encoding.fromHex(input);
@@ -11,7 +11,7 @@ export function makeWeaveAddressDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#weave-address`,
     interpretedAs: "Weave address",
-    priority: proirities.weaveAddressDisplay,
+    priority: priorities.weaveAddress,
     data: (
       <div>
         IOV test: <Link to={"#" + tiovAddress}>{tiovAddress}</Link>

@@ -2,7 +2,7 @@ import { Encoding, Uint64 } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { proirities, StaticDisplay } from ".";
+import { priorities, StaticDisplay } from ".";
 
 const { toHex } = Encoding;
 
@@ -32,7 +32,7 @@ export function makeWeaveEscrowId(input: string): StaticDisplay {
   return makeWeaveIdDisplay(
     "weave-escrow-id",
     "Weave escrow ID",
-    proirities.weaveEscrowIdDisplay,
+    priorities.weaveEscrowId,
     "escrow",
     "seq",
     input,
@@ -43,7 +43,7 @@ export function makeWeaveGovernanceRuleId(input: string): StaticDisplay {
   return makeWeaveIdDisplay(
     "weave-governance-rule-id",
     "Weave governance rule ID",
-    proirities.weaveGovernanceRuleIdDisplay,
+    priorities.weaveGovernanceRuleId,
     "gov",
     "rule",
     input,
@@ -54,7 +54,7 @@ export function makeWeaveMultisigId(input: string): StaticDisplay {
   return makeWeaveIdDisplay(
     "weave-multisig-id",
     "Weave multisignature ID",
-    proirities.weaveMutltisigIdDisplay,
+    priorities.weaveMutltisigId,
     "multisig",
     "usage",
     input,

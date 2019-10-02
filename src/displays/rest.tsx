@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { printAmount, printPath } from "../bcphelpers";
 import { HdCoin, NetworkSettings } from "../settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "../uielements";
-import { InteractiveDisplay, proirities, StaticDisplay } from ".";
+import { InteractiveDisplay, priorities, StaticDisplay } from ".";
 
 const { fromHex, toHex } = Encoding;
 
@@ -113,7 +113,7 @@ export function makeBnsAccountDisplay(input: string, network: NetworkSettings): 
   const interpretedAs = `Account on ${network.name}`;
   return makeBnsAccountDisplayImpl(
     id,
-    proirities.bnsAddressDisplay,
+    priorities.bnsAddress,
     interpretedAs,
     { address: input as Address },
     network,
@@ -125,7 +125,7 @@ export function makeLiskAccountDisplay(input: string, network: NetworkSettings):
   const interpretedAs = `Account on ${network.name}`;
   return {
     id: id,
-    priority: proirities.liskAddressDisplay,
+    priority: priorities.liskAddress,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bcpConnections.has(network.url)) {
@@ -169,7 +169,7 @@ export function makeLiskAccountDisplay(input: string, network: NetworkSettings):
       return {
         id: id,
         interpretedAs: interpretedAs,
-        priority: proirities.liskAddressDisplay,
+        priority: priorities.liskAddress,
         data: data,
       };
     },
@@ -181,7 +181,7 @@ export function makeRiseAccountDisplay(input: string, network: NetworkSettings):
   const interpretedAs = `Account on ${network.name}`;
   return {
     id: id,
-    priority: proirities.riseAddressDisplay,
+    priority: priorities.riseAddress,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bcpConnections.has(network.url)) {
@@ -224,7 +224,7 @@ export function makeRiseAccountDisplay(input: string, network: NetworkSettings):
       }
       return {
         id: id,
-        priority: proirities.riseAddressDisplay,
+        priority: priorities.riseAddress,
         interpretedAs: interpretedAs,
         data: data,
       };
@@ -237,7 +237,7 @@ export function makeBnsUsernameDisplay(input: string, network: NetworkSettings):
   const interpretedAs = `Username on ${network.name}`;
   return {
     id: displayId,
-    priority: proirities.bnsUsernameDisplay,
+    priority: priorities.bnsUsername,
     interpretedAs: interpretedAs,
     getData: async () => {
       if (!bnsConnections.has(network.url)) {
@@ -286,7 +286,7 @@ export function makeBnsUsernameDisplay(input: string, network: NetworkSettings):
       return {
         id: displayId,
         interpretedAs: interpretedAs,
-        priority: proirities.bnsUsernameDisplay,
+        priority: priorities.bnsUsername,
         data: data,
       };
     },
@@ -298,7 +298,7 @@ export function makeBech32Display(input: string): StaticDisplay {
   return {
     id: `${input}#bech32`,
     interpretedAs: "Bech32 address",
-    priority: proirities.bech32Display,
+    priority: priorities.bech32,
     data: (
       <div>
         Prefix: {parsed.prefix}
@@ -314,7 +314,7 @@ export function makeHexDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#hex-summary`,
     interpretedAs: "Hex data summary",
-    priority: proirities.hexDisplay,
+    priority: priorities.hex,
     data: (
       <div>
         Length: {inputData.length} bytes
@@ -338,7 +338,7 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#ethereum-address`,
     interpretedAs: "Ethereum address",
-    priority: proirities.ethereumAddressDisplay,
+    priority: priorities.ethereumAddress,
     data: (
       <div>
         <div className="pair">
@@ -382,7 +382,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#ed25519-pubkey`,
     interpretedAs: "Ed25519 public key",
-    priority: proirities.ed25519PubkeyDisplay,
+    priority: priorities.ed25519Pubkey,
     data: (
       <div>
         IOV main: <Link to={"#" + iovMainAddress}>{iovMainAddress}</Link>
@@ -409,7 +409,7 @@ export function makeSecp256k1PubkeyDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#secp256k1-pubkey`,
     interpretedAs: "Secp256k1 public key",
-    priority: proirities.secp256k1PubkeyDisplay,
+    priority: priorities.secp256k1Pubkey,
     data: (
       <div>
         Ethereum: <Link to={"#" + ethereumAddress}>{ethereumAddress}</Link>
@@ -426,7 +426,7 @@ export function makeEd25519PrivkeyDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#ed25519-privkey`,
     interpretedAs: "Ed25519 private key (libsodium format)",
-    priority: proirities.ed25519PivkeyDisplay,
+    priority: priorities.ed25519Pivkey,
     data: (
       <div>
         <div className="pair">
@@ -463,7 +463,7 @@ function makeHdAddressesDisplay(
   return {
     id: id,
     interpretedAs: interpretedAs,
-    priority: proirities.hdAddressesDisplay,
+    priority: priorities.hdAddresses,
     deprecated: deprecated,
     data: <div>{rows}</div>,
   };
@@ -546,7 +546,7 @@ export async function makeLiskLikePassphraseDisplay(input: string): Promise<Stat
   return {
     id: `${input}#lisk-like-passphrase`,
     interpretedAs: "Lisk-like passphrase",
-    priority: proirities.liskLikePassphraseDisplay,
+    priority: priorities.liskLikePassphrase,
     data: (
       <div>
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
@@ -586,7 +586,7 @@ export function makeBip39MnemonicDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#bip39-english-mnemonic`,
     interpretedAs: "Bip39 english mnemonic",
-    priority: proirities.bip39MnemonicDisplay,
+    priority: priorities.bip39Mnemonic,
     data: (
       <div>
         Words: {wordCount}
