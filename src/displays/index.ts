@@ -16,6 +16,7 @@ export {
 } from "./rest";
 export { makeWeaveConditionDisplay } from "./weaveCondition";
 export { makeWeaveAddressDisplay } from "./weaveAddress";
+export { makeWeaveEscrowId, makeWeaveGovernanceRuleId, makeWeaveMultisigId } from "./weaveId";
 
 export interface StaticDisplay {
   readonly id: string;
@@ -55,6 +56,9 @@ export const proirities = {
   bech32Display: 10,
   weaveAddressDisplay: 10,
   weaveConditionDisplay: 10,
+  weaveEscrowIdDisplay: 10,
+  weaveGovernanceRuleIdDisplay: 10,
+  weaveMutltisigIdDisplay: 10,
   ethereumAddressDisplay: 10,
   bip39MnemonicDisplay: 11,
   bnsUsernameDisplay: 15,

@@ -1,5 +1,5 @@
 import { Bip39, EnglishMnemonic } from "@iov/crypto";
-import { Bech32, Encoding } from "@iov/encoding";
+import { Bech32, Encoding, Uint64 } from "@iov/encoding";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
 import { riseCodec } from "@iov/rise";
@@ -21,6 +21,8 @@ export enum InputProperties {
   LiskAddress,
   RiseAddress,
   WeaveCondition,
+  Uint64,
+  NonZeroUint64,
   /* eslint-enable no-shadow */
 }
 
@@ -33,6 +35,14 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
   }
 
   const out = new Set<InputProperties>();
+
+  try {
+    const value = Uint64.fromString(input);
+    out.add(InputProperties.Uint64);
+    if (value.toString() !== "0") {
+      out.add(InputProperties.NonZeroUint64);
+    }
+  } catch {}
 
   try {
     const rawData = Encoding.fromHex(input);

@@ -16,6 +16,9 @@ import {
   makeSecp256k1PubkeyDisplay,
   makeWeaveAddressDisplay,
   makeWeaveConditionDisplay,
+  makeWeaveEscrowId,
+  makeWeaveGovernanceRuleId,
+  makeWeaveMultisigId,
 } from "./displays";
 import { InputProperties, interprete } from "./interprete";
 import {
@@ -102,6 +105,12 @@ export async function processInput(input: string): Promise<readonly Display[]> {
 
   if (properties.has(InputProperties.WeaveCondition)) {
     out.push(makeWeaveConditionDisplay(normalizedInput));
+  }
+
+  if (properties.has(InputProperties.NonZeroUint64)) {
+    out.push(makeWeaveEscrowId(normalizedInput));
+    out.push(makeWeaveGovernanceRuleId(normalizedInput));
+    out.push(makeWeaveMultisigId(normalizedInput));
   }
 
   out.sort(compareByPriority);
