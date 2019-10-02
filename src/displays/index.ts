@@ -43,4 +43,20 @@ export function isInteractiveDisplay(display: Display): display is InteractiveDi
   );
 }
 
-export const priorityWeaveConditionDisplay = 10;
+export const proirities = {
+  ed25519PubkeyDisplay: 7,
+  secp256k1PubkeyDisplay: 7,
+  ed25519PivkeyDisplay: 7,
+  hdAddressesDisplay: 7,
+  liskLikePassphraseDisplay: 8,
+  bnsAddressDisplay: 9,
+  liskAddressDisplay: 10,
+  riseAddressDisplay: 10,
+  bech32Display: 10,
+  weaveAddressDisplay: 10,
+  weaveConditionDisplay: 10,
+  ethereumAddressDisplay: 10,
+  bip39MnemonicDisplay: 11,
+  bnsUsernameDisplay: 15,
+  hexDisplay: 20,
+};

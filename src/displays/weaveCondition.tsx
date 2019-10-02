@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { weaveConditionRegex } from "../interprete";
 import { iovChainIds } from "../settings";
-import { priorityWeaveConditionDisplay, StaticDisplay } from ".";
+import { proirities, StaticDisplay } from ".";
 
 const { fromHex, toHex } = Encoding;
 
@@ -22,7 +22,7 @@ export function makeWeaveConditionDisplay(input: string): StaticDisplay {
   return {
     id: `${input}#weave-condition`,
     interpretedAs: "Weave condition",
-    priority: priorityWeaveConditionDisplay,
+    priority: proirities.weaveConditionDisplay,
     data: (
       <div>
         Extension: {extension}
