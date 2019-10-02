@@ -26,6 +26,10 @@ import {
   secp256k1Slip10HdCoins,
 } from "./settings";
 
+function compareByPriority(a: Display, b: Display): number {
+  return a.priority - b.priority;
+}
+
 export async function processInput(input: string): Promise<readonly Display[]> {
   const normalizedInput = input.trim();
 
@@ -100,7 +104,7 @@ export async function processInput(input: string): Promise<readonly Display[]> {
     out.push(makeWeaveConditionDisplay(normalizedInput));
   }
 
-  out.sort((a, b) => a.priority - b.priority);
+  out.sort(compareByPriority);
 
   return out;
 }
