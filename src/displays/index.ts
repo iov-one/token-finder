@@ -13,9 +13,9 @@ export {
   makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
-  makeWeaveAddressDisplay,
 } from "./rest";
 export { makeWeaveConditionDisplay } from "./weaveCondition";
+export { makeWeaveAddressDisplay } from "./weaveAddress";
 
 export interface StaticDisplay {
   readonly id: string;

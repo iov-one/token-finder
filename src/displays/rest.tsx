@@ -332,24 +332,6 @@ export function makeHexDisplay(input: string): StaticDisplay {
   };
 }
 
-export function makeWeaveAddressDisplay(input: string): StaticDisplay {
-  const inputData = Encoding.fromHex(input);
-  const tiovAddress = Bech32.encode("tiov", inputData);
-  const iovAddress = Bech32.encode("iov", inputData);
-  return {
-    id: `${input}#weave-address`,
-    interpretedAs: "Weave address",
-    priority: proirities.weaveAddressDisplay,
-    data: (
-      <div>
-        IOV test: <Link to={"#" + tiovAddress}>{tiovAddress}</Link>
-        <br />
-        IOV main: <Link to={"#" + iovAddress}>{iovAddress}</Link>
-      </div>
-    ),
-  };
-}
-
 export function makeEthereumAddressDisplay(input: string): StaticDisplay {
   const lower = input.toLowerCase();
   const checksummed = toChecksummedAddress(input);
