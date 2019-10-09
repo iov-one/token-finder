@@ -28,7 +28,7 @@ const { fromHex, toHex } = Encoding;
 const bcpConnections = new Map<string, Promise<BlockchainConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
 
-function makeBnsAccountDisplayImpl(
+function makeIovAccountDisplayImpl(
   id: string,
   priority: number,
   interpretedAs: string,
@@ -108,10 +108,10 @@ function makeBnsAccountDisplayImpl(
   };
 }
 
-export function makeBnsAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+export function makeIovAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const id = `${input}#${network.name}-bns-account`;
   const interpretedAs = `Account on ${network.name}`;
-  return makeBnsAccountDisplayImpl(
+  return makeIovAccountDisplayImpl(
     id,
     priorities.bnsAddress,
     interpretedAs,
@@ -232,7 +232,7 @@ export function makeRiseAccountDisplay(input: string, network: NetworkSettings):
   };
 }
 
-export function makeBnsUsernameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
+export function makeIovUsernameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const displayId = `${input}#${network.name}-username`;
   const interpretedAs = `Username on ${network.name}`;
   return {

@@ -1,8 +1,8 @@
 export {
   makeBech32Display,
   makeBip39MnemonicDisplay,
-  makeBnsAccountDisplay,
-  makeBnsUsernameDisplay,
+  makeIovAccountDisplay,
+  makeIovUsernameDisplay,
   makeEd25519HdWalletDisplay,
   makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,

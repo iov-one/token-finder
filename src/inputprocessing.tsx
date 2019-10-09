@@ -2,13 +2,13 @@ import {
   Display,
   makeBech32Display,
   makeBip39MnemonicDisplay,
-  makeBnsAccountDisplay,
-  makeBnsUsernameDisplay,
   makeEd25519HdWalletDisplay,
   makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,
   makeEthereumAddressDisplay,
   makeHexDisplay,
+  makeIovAccountDisplay,
+  makeIovUsernameDisplay,
   makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
   makeRiseAccountDisplay,
@@ -43,17 +43,17 @@ export async function processInput(input: string): Promise<readonly Display[]> {
 
   if (properties.has(InputProperties.IovAddressTestnet)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsAccountDisplay(normalizedInput, network));
+      out.push(makeIovAccountDisplay(normalizedInput, network));
     }
   }
 
   if (properties.has(InputProperties.IovAddressMainnet)) {
-    out.push(makeBnsAccountDisplay(normalizedInput, iovMainnet));
+    out.push(makeIovAccountDisplay(normalizedInput, iovMainnet));
   }
 
   if (properties.has(InputProperties.BnsUsername)) {
     for (const network of iovTestnets) {
-      out.push(makeBnsUsernameDisplay(normalizedInput, network));
+      out.push(makeIovUsernameDisplay(normalizedInput, network));
     }
   }
 
