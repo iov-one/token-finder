@@ -23,6 +23,7 @@ import {
 import { InputProperties, interprete } from "./interprete";
 import {
   accountBasedSlip10HdCoins,
+  iovMainnet,
   iovTestnets,
   liskNetworks,
   riseNetworks,
@@ -44,6 +45,10 @@ export async function processInput(input: string): Promise<readonly Display[]> {
     for (const network of iovTestnets) {
       out.push(makeBnsAccountDisplay(normalizedInput, network));
     }
+  }
+
+  if (properties.has(InputProperties.IovAddressMainnet)) {
+    out.push(makeBnsAccountDisplay(normalizedInput, iovMainnet));
   }
 
   if (properties.has(InputProperties.BnsUsername)) {

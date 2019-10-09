@@ -43,6 +43,11 @@ export const iovTestnets: readonly NetworkSettings[] = [
   ...iovDevnets,
 ];
 
+export const iovMainnet: NetworkSettings = {
+  name: "Mainnet",
+  url: "https://rpc-private-a-vip-mainnet.iov.one",
+};
+
 export const liskNetworks: readonly NetworkSettings[] = [
   {
     name: "Lisk Testnet",
