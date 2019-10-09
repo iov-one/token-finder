@@ -36,10 +36,6 @@ export const iovTestnets: readonly NetworkSettings[] = [
     name: "Clapnet 👏",
     url: "https://rpc-private-a-vip2-clapnet.iov.one",
   },
-  {
-    name: "Babynet 👶",
-    url: "https://rpc-private-a-vip-babynet.iov.one",
-  },
   ...iovDevnets,
 ];
 
