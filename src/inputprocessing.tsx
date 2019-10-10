@@ -52,6 +52,7 @@ export async function processInput(input: string): Promise<readonly Display[]> {
   }
 
   if (properties.has(InputProperties.BnsUsername)) {
+    out.push(makeIovUsernameDisplay(normalizedInput, iovMainnet));
     for (const network of iovTestnets) {
       out.push(makeIovUsernameDisplay(normalizedInput, network));
     }
