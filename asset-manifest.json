@@ -1,15 +1,21 @@
 {
   "files": {
     "main.css": "/token-finder/static/css/main.5b431d1d.chunk.css",
-    "main.js": "/token-finder/static/js/main.48401899.chunk.js",
-    "main.js.map": "/token-finder/static/js/main.48401899.chunk.js.map",
-    "runtime-main.js": "/token-finder/static/js/runtime-main.d69d227b.js",
-    "runtime-main.js.map": "/token-finder/static/js/runtime-main.d69d227b.js.map",
-    "static/js/2.8dd87931.chunk.js": "/token-finder/static/js/2.8dd87931.chunk.js",
-    "static/js/2.8dd87931.chunk.js.map": "/token-finder/static/js/2.8dd87931.chunk.js.map",
+    "main.js": "/token-finder/static/js/main.577316ba.chunk.js",
+    "main.js.map": "/token-finder/static/js/main.577316ba.chunk.js.map",
+    "runtime-main.js": "/token-finder/static/js/runtime-main.b095853d.js",
+    "runtime-main.js.map": "/token-finder/static/js/runtime-main.b095853d.js.map",
+    "static/js/2.9805f7ed.chunk.js": "/token-finder/static/js/2.9805f7ed.chunk.js",
+    "static/js/2.9805f7ed.chunk.js.map": "/token-finder/static/js/2.9805f7ed.chunk.js.map",
     "index.html": "/token-finder/index.html",
-    "precache-manifest.c12699429a00bf7e99023be88572ab8b.js": "/token-finder/precache-manifest.c12699429a00bf7e99023be88572ab8b.js",
+    "precache-manifest.46315207624bd186b085118392a78c81.js": "/token-finder/precache-manifest.46315207624bd186b085118392a78c81.js",
     "service-worker.js": "/token-finder/service-worker.js",
     "static/css/main.5b431d1d.chunk.css.map": "/token-finder/static/css/main.5b431d1d.chunk.css.map"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b095853d.js",
+    "static/js/2.9805f7ed.chunk.js",
+    "static/css/main.5b431d1d.chunk.css",
+    "static/js/main.577316ba.chunk.js"
+  ]
 }
