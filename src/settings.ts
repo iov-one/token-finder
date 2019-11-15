@@ -33,8 +33,8 @@ const iovDevnets: readonly NetworkSettings[] =
 
 export const iovTestnets: readonly NetworkSettings[] = [
   {
-    name: "Clapnet 👏",
-    url: "https://rpc-private-a-vip2-clapnet.iov.one",
+    name: "Dancenet 💃",
+    url: "https://rpc-private-a-x-dancenet.iov.one/",
   },
   ...iovDevnets,
 ];
