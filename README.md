@@ -1,5 +1,7 @@
 # token-finder
 
+[![Build Status](https://travis-ci.com/iov-one/token-finder.svg?branch=master)](https://travis-ci.com/iov-one/token-finder)
+
 A tool that converts stuff
 
 ## Get started
