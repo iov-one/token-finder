@@ -34,7 +34,6 @@
     "@iov/ethereum": "^1.1.0",
     "@iov/keycontrol": "^1.1.0",
     "@iov/lisk": "^1.1.0",
-    "@iov/rise": "^1.1.0",
     "@types/node": "^10.12.14",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",

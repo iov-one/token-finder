@@ -11,7 +11,6 @@ import {
   makeIovUsernameDisplay,
   makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
-  makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
   makeWeaveAddressDisplay,
@@ -26,7 +25,6 @@ import {
   iovMainnet,
   iovTestnets,
   liskNetworks,
-  riseNetworks,
   secp256k1Slip10HdCoins,
 } from "./settings";
 
@@ -96,12 +94,6 @@ export async function processInput(input: string): Promise<readonly Display[]> {
   if (properties.has(InputProperties.LiskAddress)) {
     for (const network of liskNetworks) {
       out.push(makeLiskAccountDisplay(normalizedInput, network));
-    }
-  }
-
-  if (properties.has(InputProperties.RiseAddress)) {
-    for (const network of riseNetworks) {
-      out.push(makeRiseAccountDisplay(normalizedInput, network));
     }
   }
 

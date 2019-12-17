@@ -2,7 +2,6 @@ import { ChainId, TxCodec } from "@iov/bcp";
 import { bnsCodec } from "@iov/bns";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
-import { riseCodec } from "@iov/rise";
 
 export interface NetworkSettings {
   readonly name: string;
@@ -55,17 +54,6 @@ export const liskNetworks: readonly NetworkSettings[] = [
   },
 ];
 
-export const riseNetworks: readonly NetworkSettings[] = [
-  {
-    name: "RISE Testnet",
-    url: "https://twallet.rise.vision",
-  },
-  {
-    name: "RISE Mainnet",
-    url: "https://wallet.rise.vision",
-  },
-];
-
 export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
   {
     name: "IOV",
@@ -80,13 +68,6 @@ export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
     // https://github.com/prolina-foundation/lisk-wiki/blob/master/Networks.md#mainnet
     chainId: "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511" as ChainId,
     codec: liskCodec,
-  },
-  {
-    name: "RISE",
-    number: 1120,
-    // https://github.com/RiseVision/rise-node/blob/master/etc/mainnet/config.json
-    chainId: "cd8171332c012514864edd8eb6f68fc3ea6cb2afbaf21c56e12751022684cea5" as ChainId,
-    codec: riseCodec,
   },
 ];
 

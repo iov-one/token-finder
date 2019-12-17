@@ -2,7 +2,6 @@ import { Bip39, EnglishMnemonic } from "@iov/crypto";
 import { Bech32, Encoding, Uint64 } from "@iov/encoding";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
-import { riseCodec } from "@iov/rise";
 
 export enum InputProperties {
   /* eslint-disable no-shadow */
@@ -19,7 +18,6 @@ export enum InputProperties {
   IovAddressTestnet,
   BnsUsername,
   LiskAddress,
-  RiseAddress,
   WeaveCondition,
   Uint64,
   NonZeroUint64,
@@ -79,10 +77,6 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
 
   if (liskCodec.isValidAddress(input)) {
     out.add(InputProperties.LiskAddress);
-  }
-
-  if (riseCodec.isValidAddress(input)) {
-    out.add(InputProperties.RiseAddress);
   }
 
   if (ethereumCodec.isValidAddress(input)) {

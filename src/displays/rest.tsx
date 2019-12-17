@@ -14,7 +14,6 @@ import { Bech32, Encoding } from "@iov/encoding";
 import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
 import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
 import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
-import { RiseConnection } from "@iov/rise";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -176,62 +175,6 @@ export function makeLiskAccountDisplay(input: string, network: NetworkSettings):
   };
 }
 
-export function makeRiseAccountDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
-  const id = `${input}#${network.name}-rise-account`;
-  const interpretedAs = `Account on ${network.name}`;
-  return {
-    id: id,
-    priority: priorities.riseAddress,
-    interpretedAs: interpretedAs,
-    getData: async () => {
-      if (!bcpConnections.has(network.url)) {
-        bcpConnections.set(network.url, RiseConnection.establish(network.url));
-      }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const connection = await bcpConnections.get(network.url)!;
-      const response = await connection.getAccount({ address: input as Address });
-      return response;
-    },
-    renderData: (response: Account | undefined) => {
-      let data: JSX.Element;
-      if (response) {
-        const { address, pubkey, balance } = response;
-        const hexPubkey = pubkey ? toHex(pubkey.data) : undefined;
-        data = (
-          <table>
-            <tr>
-              <td>Address</td>
-              <td>{addressLink(address)}</td>
-            </tr>
-            <tr>
-              <td>Pubkey</td>
-              <td className="breakall">
-                {hexPubkey ? (
-                  <Link to={"#" + hexPubkey}>{hexPubkey}</Link>
-                ) : (
-                  <span className="inactive">not available</span>
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>Balance</td>
-              <td>{balance.map(printAmount).join(", ")}</td>
-            </tr>
-          </table>
-        );
-      } else {
-        data = <span className="inactive">Account not found</span>;
-      }
-      return {
-        id: id,
-        priority: priorities.riseAddress,
-        interpretedAs: interpretedAs,
-        data: data,
-      };
-    },
-  };
-}
-
 export function makeIovUsernameDisplay(input: string, network: NetworkSettings): InteractiveDisplay {
   const displayId = `${input}#${network.name}-username`;
   const interpretedAs = `Username on ${network.name}`;
@@ -377,7 +320,6 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   const iovTestAddress = pubkeyToAddress(pubkey, "tiov");
   const iovMainAddress = pubkeyToAddress(pubkey, "iov");
   const liskAddress = Derivation.pubkeyToAddress(pubkey.data, "L");
-  const riseAddress = Derivation.pubkeyToAddress(pubkey.data, "R");
 
   return {
     id: `${input}#ed25519-pubkey`,
@@ -390,8 +332,6 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
         IOV test: <Link to={"#" + iovTestAddress}>{iovTestAddress}</Link>
         <br />
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
-        <br />
-        Rise: <Link to={"#" + riseAddress}>{riseAddress}</Link>
         <br />
       </div>
     ),
@@ -541,7 +481,6 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
   const liskAddress = Derivation.pubkeyToAddress((await passphraseToKeypair(input)).pubkey, "L");
-  const riseAddress = Derivation.pubkeyToAddress((await passphraseToKeypair(input)).pubkey, "R");
 
   return {
     id: `${input}#lisk-like-passphrase`,
@@ -550,8 +489,6 @@ export async function makeLiskLikePassphraseDisplay(input: string): Promise<Stat
     data: (
       <div>
         Lisk: <Link to={"#" + liskAddress}>{liskAddress}</Link>
-        <br />
-        Rise: <Link to={"#" + riseAddress}>{riseAddress}</Link>
         <br />
       </div>
     ),
