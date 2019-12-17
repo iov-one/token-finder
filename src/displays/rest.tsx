@@ -7,13 +7,12 @@ import {
   PubkeyBundle,
   PubkeyBytes,
 } from "@iov/bcp";
-import { BnsConnection, BnsUsernameNft, pubkeyToAddress } from "@iov/bns";
+import { BnsConnection, BnsUsernameNft, pubkeyToAddress as bnsPubkeyToAddress } from "@iov/bns";
 import { Bip39, EnglishMnemonic, Slip10RawIndex } from "@iov/crypto";
-import { Derivation } from "@iov/dpos";
 import { Bech32, Encoding } from "@iov/encoding";
 import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
 import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
-import { LiskConnection, passphraseToKeypair } from "@iov/lisk";
+import { LiskConnection, passphraseToKeypair, pubkeyToAddress as liskPubkeyToAddress } from "@iov/lisk";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -317,9 +316,9 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
     data: Encoding.fromHex(input) as PubkeyBytes,
   };
 
-  const iovTestAddress = pubkeyToAddress(pubkey, "tiov");
-  const iovMainAddress = pubkeyToAddress(pubkey, "iov");
-  const liskAddress = Derivation.pubkeyToAddress(pubkey.data, "L");
+  const iovTestAddress = bnsPubkeyToAddress(pubkey, "tiov");
+  const iovMainAddress = bnsPubkeyToAddress(pubkey, "iov");
+  const liskAddress = liskPubkeyToAddress(pubkey.data);
 
   return {
     id: `${input}#ed25519-pubkey`,
@@ -480,7 +479,7 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
-  const liskAddress = Derivation.pubkeyToAddress((await passphraseToKeypair(input)).pubkey, "L");
+  const liskAddress = liskPubkeyToAddress((await passphraseToKeypair(input)).pubkey);
 
   return {
     id: `${input}#lisk-like-passphrase`,
