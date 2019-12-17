@@ -1,5 +1,6 @@
 import "./App.css";
 
+import { History } from "history";
 import React from "react";
 import { withRouter } from "react-router-dom";
 
@@ -8,7 +9,7 @@ import { processInput } from "./inputprocessing";
 
 interface TestProps {
   readonly location: any;
-  readonly history: any;
+  readonly history: History;
   readonly match: any;
 }
 
@@ -132,6 +133,16 @@ class App extends React.Component<TestProps, TestState> {
     for (const timeout of this.timeouts) {
       clearTimeout(timeout);
     }
+
+    // After some delay, push this input to browser history
+    this.timeouts.push(
+      setTimeout(() => {
+        const currentLocationHash = decodeURIComponent(this.props.location.hash.slice(1));
+        if (currentLocationHash !== newValue) {
+          this.props.history.push(`#${encodeURIComponent(newValue)}`);
+        }
+      }, 2500),
+    );
 
     for (const interactiveDisplay of out.filter(isInteractiveDisplay)) {
       const job = (): void => {
