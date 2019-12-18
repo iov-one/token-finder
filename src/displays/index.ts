@@ -10,7 +10,6 @@ export {
   makeHexDisplay,
   makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
-  makeRiseAccountDisplay,
   makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
 } from "./rest";
@@ -52,7 +51,6 @@ export const priorities = {
   liskLikePassphrase: 8,
   bnsAddress: 9,
   liskAddress: 10,
-  riseAddress: 10,
   bech32: 10,
   weaveAddress: 10,
   weaveCondition: 10,
