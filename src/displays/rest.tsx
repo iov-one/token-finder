@@ -318,7 +318,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
 
   const iovTestAddress = bnsPubkeyToAddress(pubkey, "tiov");
   const iovMainAddress = bnsPubkeyToAddress(pubkey, "iov");
-  const liskAddress = liskPubkeyToAddress(pubkey.data);
+  const liskAddress = liskPubkeyToAddress(pubkey);
 
   return {
     id: `${input}#ed25519-pubkey`,
@@ -479,7 +479,11 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
 }
 
 export async function makeLiskLikePassphraseDisplay(input: string): Promise<StaticDisplay> {
-  const liskAddress = liskPubkeyToAddress((await passphraseToKeypair(input)).pubkey);
+  const pubkey: PubkeyBundle = {
+    algo: Algorithm.Ed25519,
+    data: (await passphraseToKeypair(input)).pubkey as PubkeyBytes,
+  };
+  const liskAddress = liskPubkeyToAddress(pubkey);
 
   return {
     id: `${input}#lisk-like-passphrase`,
