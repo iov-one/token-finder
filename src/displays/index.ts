@@ -3,16 +3,15 @@ export {
   makeBip39MnemonicDisplay,
   makeIovAccountDisplay,
   makeIovUsernameDisplay,
-  makeEd25519HdWalletDisplay,
   makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,
   makeEthereumAddressDisplay,
   makeHexDisplay,
   makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
-  makeSecp256k1HdWalletDisplay,
   makeSecp256k1PubkeyDisplay,
 } from "./rest";
+export { makeEd25519HdWalletDisplay, makeSecp256k1HdWalletDisplay } from "./hdwallet";
 export { makeWeaveConditionDisplay } from "./weaveCondition";
 export { makeWeaveAddressDisplay } from "./weaveAddress";
 export { makeWeaveEscrowId, makeWeaveGovernanceRuleId, makeWeaveMultisigId } from "./weaveId";
