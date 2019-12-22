@@ -1,5 +1,4 @@
 export {
-  makeBech32Display,
   makeBip39MnemonicDisplay,
   makeIovAccountDisplay,
   makeIovUsernameDisplay,
@@ -11,6 +10,7 @@ export {
   makeLiskLikePassphraseDisplay,
   makeSecp256k1PubkeyDisplay,
 } from "./rest";
+export { makeBech32Display } from "./bech32";
 export { makeEd25519HdWalletDisplay, makeSecp256k1HdWalletDisplay } from "./hdwallet";
 export { makeWeaveConditionDisplay } from "./weaveCondition";
 export { makeWeaveAddressDisplay } from "./weaveAddress";

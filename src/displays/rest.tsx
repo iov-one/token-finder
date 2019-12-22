@@ -9,7 +9,7 @@ import {
 } from "@iov/bcp";
 import { BnsConnection, BnsUsernameNft, pubkeyToAddress as bnsPubkeyToAddress } from "@iov/bns";
 import { Bip39, EnglishMnemonic } from "@iov/crypto";
-import { Bech32, Encoding } from "@iov/encoding";
+import { Encoding } from "@iov/encoding";
 import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
 import { LiskConnection, passphraseToKeypair, pubkeyToAddress as liskPubkeyToAddress } from "@iov/lisk";
 import React from "react";
@@ -231,22 +231,6 @@ export function makeIovUsernameDisplay(input: string, network: NetworkSettings):
         data: data,
       };
     },
-  };
-}
-
-export function makeBech32Display(input: string): StaticDisplay {
-  const parsed = Bech32.decode(input);
-  return {
-    id: `${input}#bech32`,
-    interpretedAs: "Bech32 address",
-    priority: priorities.bech32,
-    data: (
-      <div>
-        Prefix: {parsed.prefix}
-        <br />
-        Data: <Link to={"#" + toHex(parsed.data)}>{toHex(parsed.data)}</Link>
-      </div>
-    ),
   };
 }
 
