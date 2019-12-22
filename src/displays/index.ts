@@ -5,13 +5,13 @@ export {
   makeEd25519PrivkeyDisplay,
   makeEd25519PubkeyDisplay,
   makeEthereumAddressDisplay,
-  makeHexDisplay,
   makeLiskAccountDisplay,
   makeLiskLikePassphraseDisplay,
   makeSecp256k1PubkeyDisplay,
 } from "./rest";
 export { makeBech32Display } from "./bech32";
 export { makeEd25519HdWalletDisplay, makeSecp256k1HdWalletDisplay } from "./hdwallet";
+export { makeHexDisplay } from "./hex";
 export { makeWeaveConditionDisplay } from "./weaveCondition";
 export { makeWeaveAddressDisplay } from "./weaveAddress";
 export { makeWeaveEscrowId, makeWeaveGovernanceRuleId, makeWeaveMultisigId } from "./weaveId";
