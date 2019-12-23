@@ -6,8 +6,8 @@ import { priorities, StaticDisplay } from ".";
 export function makeHexDisplay(input: string): StaticDisplay {
   const inputData = Encoding.fromHex(input);
   return {
-    id: `${input}#hex-summary`,
-    interpretedAs: "Hex data summary",
+    id: `${input}#hex-data`,
+    interpretedAs: "Hex data",
     priority: priorities.hex,
     data: (
       <div>
