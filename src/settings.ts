@@ -4,6 +4,8 @@ import { bnsCodec } from "@iov/bns";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
 
+// Cannot make readonly array because type is missing (see https://github.com/CosmWasm/cosmwasm-js/pull/180)
+// tslint:disable-next-line: readonly-array
 const bankTokens = [
   {
     fractionalDigits: 9,
