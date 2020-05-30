@@ -1,7 +1,18 @@
+import { CosmWasmCodec } from "@cosmwasm/bcp";
 import { ChainId, TxCodec } from "@iov/bcp";
 import { bnsCodec } from "@iov/bns";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
+
+const bankTokens = [
+  {
+    fractionalDigits: 9,
+    name: "Internet Of Value Token",
+    ticker: "IOV",
+    denom: "niov",
+  },
+];
+const iovMainnet2Codec = new CosmWasmCodec("star", bankTokens);
 
 export interface NetworkSettings {
   readonly name: string;
@@ -72,6 +83,12 @@ export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
 ];
 
 export const secp256k1Slip10HdCoins: readonly HdCoin[] = [
+  {
+    name: "IOV (Cosmos SDK based)",
+    number: 234,
+    chainId: "iov-mainnet-2" as ChainId,
+    codec: iovMainnet2Codec,
+  },
   {
     name: "Ethereum",
     number: 60,
