@@ -67,7 +67,7 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
   }
 
   return makeHdAddressesDisplay(
-    `${input}#hd-wallet-coin${coinNumber}`,
+    `${input}#hd-wallet-ed25519-coin${coinNumber}`,
     `${coinName} HD Wallet`,
     addresses,
     21,
@@ -103,7 +103,7 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
   }
 
   return makeHdAddressesDisplay(
-    `${input}#hd-wallet-coin${coinNumber}`,
+    `${input}#hd-wallet-secp256k1-coin${coinNumber}`,
     `${coinName} HD Wallet`,
     addresses,
     16,
