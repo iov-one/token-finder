@@ -1,10 +1,10 @@
-import { Encoding } from "@iov/encoding";
+import { fromHex } from "@iov/encoding";
 import React from "react";
 
 import { priorities, StaticDisplay } from ".";
 
 export function makeHexDisplay(input: string): StaticDisplay {
-  const inputData = Encoding.fromHex(input);
+  const inputData = fromHex(input);
   return {
     id: `${input}#hex-data`,
     interpretedAs: "Hex data",

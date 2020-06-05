@@ -1,13 +1,11 @@
 import { buildCondition, conditionToAddress } from "@iov/bns";
-import { Encoding } from "@iov/encoding";
+import { fromHex, toHex } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import { weaveConditionRegex } from "../interprete";
 import { iovChainIds } from "../settings";
 import { priorities, StaticDisplay } from ".";
-
-const { fromHex, toHex } = Encoding;
 
 export function makeWeaveConditionDisplay(input: string): StaticDisplay {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

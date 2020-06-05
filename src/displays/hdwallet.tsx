@@ -1,6 +1,6 @@
 import { Address, PubkeyBundle } from "@iov/bcp";
 import { Slip10RawIndex } from "@iov/crypto";
-import { Encoding } from "@iov/encoding";
+import { toHex } from "@iov/encoding";
 import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -9,8 +9,6 @@ import { printPath } from "../bcphelpers";
 import { HdCoin } from "../settings";
 import { ellideMiddle } from "../uielements";
 import { priorities, StaticDisplay } from ".";
-
-const { toHex } = Encoding;
 
 function makeHdAddressesDisplay(
   id: string,

@@ -1,5 +1,5 @@
 import { Bip39, EnglishMnemonic } from "@iov/crypto";
-import { Bech32, Encoding, Uint64 } from "@iov/encoding";
+import { Bech32, fromHex, Uint64 } from "@iov/encoding";
 import { ethereumCodec } from "@iov/ethereum";
 import { liskCodec } from "@iov/lisk";
 
@@ -43,7 +43,7 @@ export function interprete(input: string): ReadonlySet<InputProperties> {
   } catch {}
 
   try {
-    const rawData = Encoding.fromHex(input);
+    const rawData = fromHex(input);
     out.add(InputProperties.Hex);
     if (rawData.length === 20) out.add(InputProperties.ByteLength20);
     if (rawData.length === 32) out.add(InputProperties.ByteLength32);
