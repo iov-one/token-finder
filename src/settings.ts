@@ -1,7 +1,9 @@
 import { CosmWasmCodec } from "@cosmwasm/bcp";
 import { ChainId, TxCodec } from "@iov/bcp";
 import { bnsCodec } from "@iov/bns";
+import { Slip10RawIndex } from "@iov/crypto";
 import { ethereumCodec } from "@iov/ethereum";
+import { HdPaths } from "@iov/keycontrol";
 import { liskCodec } from "@iov/lisk";
 
 // Cannot make readonly array because type is missing (see https://github.com/CosmWasm/cosmwasm-js/pull/180)
@@ -23,7 +25,10 @@ export interface NetworkSettings {
 
 export interface HdCoin {
   readonly name: string;
-  readonly number: number;
+  /** The SLIP-0044 coin index */
+  readonly coinIndex: number;
+  /** A function that generates an HD path for a given account index */
+  readonly pathMaker: (accountIndex: number) => readonly Slip10RawIndex[];
   readonly chainId: ChainId;
   readonly codec: TxCodec;
 }
@@ -70,14 +75,16 @@ export const liskNetworks: readonly NetworkSettings[] = [
 export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
   {
     name: "IOV",
-    number: 234,
+    coinIndex: 234,
+    pathMaker: HdPaths.iov,
     // any testnet leads to "tiov" prefixes
     chainId: "some-testnet" as ChainId,
     codec: bnsCodec,
   },
   {
     name: "Lisk",
-    number: 134,
+    coinIndex: 134,
+    pathMaker: account => HdPaths.bip44Like(134, account),
     // https://github.com/prolina-foundation/lisk-wiki/blob/master/Networks.md#mainnet
     chainId: "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511" as ChainId,
     codec: liskCodec,
@@ -87,13 +94,15 @@ export const accountBasedSlip10HdCoins: readonly HdCoin[] = [
 export const secp256k1Slip10HdCoins: readonly HdCoin[] = [
   {
     name: "IOV (Cosmos SDK based)",
-    number: 234,
+    coinIndex: 234,
+    pathMaker: HdPaths.iovCosmosSdk,
     chainId: "iov-mainnet-2" as ChainId,
     codec: iovMainnet2Codec,
   },
   {
     name: "Ethereum",
-    number: 60,
+    coinIndex: 60,
+    pathMaker: HdPaths.ethereum,
     // all Ethereum networks use the same addresses
     chainId: "ethereum-eip155-0" as ChainId,
     codec: ethereumCodec,
