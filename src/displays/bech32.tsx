@@ -1,10 +1,8 @@
-import { Bech32, Encoding } from "@iov/encoding";
+import { Bech32, toHex } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import { priorities, StaticDisplay } from ".";
-
-const { toHex } = Encoding;
 
 export function makeBech32Display(input: string): StaticDisplay {
   const parsed = Bech32.decode(input);

@@ -1,16 +1,13 @@
 import { Address, PubkeyBundle } from "@iov/bcp";
-import { Slip10RawIndex } from "@iov/crypto";
-import { Encoding } from "@iov/encoding";
+import { pathToString } from "@iov/crypto";
+import { toHex } from "@iov/encoding";
 import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { printPath } from "../bcphelpers";
 import { HdCoin } from "../settings";
 import { ellideMiddle } from "../uielements";
 import { priorities, StaticDisplay } from ".";
-
-const { toHex } = Encoding;
 
 function makeHdAddressesDisplay(
   id: string,
@@ -41,7 +38,7 @@ function makeHdAddressesDisplay(
 }
 
 export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): Promise<StaticDisplay> {
-  const { number: coinNumber, name: coinName, chainId, codec } = coin;
+  const { coinIndex, name: coinName, chainId, codec } = coin;
 
   const wallet = Ed25519HdWallet.fromMnemonic(input);
 
@@ -52,22 +49,18 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
     readonly address: Address;
   }[] = [];
   for (let a = 0; a < 5; ++a) {
-    const path: readonly Slip10RawIndex[] = [
-      Slip10RawIndex.hardened(44),
-      Slip10RawIndex.hardened(coinNumber),
-      Slip10RawIndex.hardened(a),
-    ];
+    const path = coin.pathMaker(a);
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: printPath(path),
+      path: pathToString(path),
       pubkey: identity.pubkey,
       address: address,
     });
   }
 
   return makeHdAddressesDisplay(
-    `${input}#hd-wallet-coin${coinNumber}`,
+    `${input}#hd-wallet-ed25519-coin${coinIndex}`,
     `${coinName} HD Wallet`,
     addresses,
     21,
@@ -75,7 +68,7 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
 }
 
 export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin): Promise<StaticDisplay> {
-  const { number: coinNumber, name: coinName, chainId, codec } = coin;
+  const { coinIndex, name: coinName, chainId, codec } = coin;
 
   const wallet = Secp256k1HdWallet.fromMnemonic(input);
 
@@ -86,24 +79,18 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
     readonly address: Address;
   }[] = [];
   for (let a = 0; a < 5; ++a) {
-    const path: readonly Slip10RawIndex[] = [
-      Slip10RawIndex.hardened(44),
-      Slip10RawIndex.hardened(coinNumber),
-      Slip10RawIndex.hardened(0),
-      Slip10RawIndex.normal(0),
-      Slip10RawIndex.normal(a),
-    ];
+    const path = coin.pathMaker(a);
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: printPath(path),
+      path: pathToString(path),
       pubkey: identity.pubkey,
       address: address,
     });
   }
 
   return makeHdAddressesDisplay(
-    `${input}#hd-wallet-coin${coinNumber}`,
+    `${input}#hd-wallet-secp256k1-coin${coinIndex}`,
     `${coinName} HD Wallet`,
     addresses,
     16,

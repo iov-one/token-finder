@@ -1,10 +1,8 @@
-import { Encoding, Uint64 } from "@iov/encoding";
+import { toHex, Uint64 } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import { priorities, StaticDisplay } from ".";
-
-const { toHex } = Encoding;
 
 function makeWeaveIdDisplay(
   idSuffix: string,

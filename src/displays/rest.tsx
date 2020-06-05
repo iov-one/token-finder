@@ -9,7 +9,7 @@ import {
 } from "@iov/bcp";
 import { BnsConnection, BnsUsernameNft, pubkeyToAddress as bnsPubkeyToAddress } from "@iov/bns";
 import { Bip39, EnglishMnemonic } from "@iov/crypto";
-import { Encoding } from "@iov/encoding";
+import { fromHex, toHex } from "@iov/encoding";
 import { pubkeyToAddress as ethereumPubkeyToAddress, toChecksummedAddress } from "@iov/ethereum";
 import { LiskConnection, passphraseToKeypair, pubkeyToAddress as liskPubkeyToAddress } from "@iov/lisk";
 import React from "react";
@@ -19,8 +19,6 @@ import { printAmount } from "../bcphelpers";
 import { NetworkSettings } from "../settings";
 import { addressLink, ellideMiddle, printEllideMiddle } from "../uielements";
 import { InteractiveDisplay, priorities, StaticDisplay } from ".";
-
-const { fromHex, toHex } = Encoding;
 
 const bcpConnections = new Map<string, Promise<BlockchainConnection>>();
 const bnsConnections = new Map<string, Promise<BnsConnection>>();
@@ -88,7 +86,7 @@ function makeIovAccountDisplayImpl(
               </tr>
               <tr>
                 <td>Balance</td>
-                <td>{balance.map(printAmount).join(", ")}</td>
+                <td>{balance.map(printAmount).join(", ") || "none"}</td>
               </tr>
               <tr>
                 <td>Names</td>
@@ -156,7 +154,7 @@ export function makeLiskAccountDisplay(input: string, network: NetworkSettings):
             </tr>
             <tr>
               <td>Balance</td>
-              <td>{balance.map(printAmount).join(", ")}</td>
+              <td>{balance.map(printAmount).join(", ") || "none"}</td>
             </tr>
           </table>
         );
@@ -273,7 +271,7 @@ export function makeEthereumAddressDisplay(input: string): StaticDisplay {
 export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
   const pubkey: PubkeyBundle = {
     algo: Algorithm.Ed25519,
-    data: Encoding.fromHex(input) as PubkeyBytes,
+    data: fromHex(input) as PubkeyBytes,
   };
 
   const iovTestAddress = bnsPubkeyToAddress(pubkey, "tiov");
@@ -300,7 +298,7 @@ export function makeEd25519PubkeyDisplay(input: string): StaticDisplay {
 export function makeSecp256k1PubkeyDisplay(input: string): StaticDisplay {
   const pubkey: PubkeyBundle = {
     algo: Algorithm.Secp256k1,
-    data: Encoding.fromHex(input) as PubkeyBytes,
+    data: fromHex(input) as PubkeyBytes,
   };
 
   const ethereumAddress = ethereumPubkeyToAddress(pubkey);

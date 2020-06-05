@@ -1,11 +1,11 @@
-import { Bech32, Encoding } from "@iov/encoding";
+import { Bech32, fromHex } from "@iov/encoding";
 import React from "react";
 import { Link } from "react-router-dom";
 
 import { priorities, StaticDisplay } from ".";
 
 export function makeWeaveAddressDisplay(input: string): StaticDisplay {
-  const inputData = Encoding.fromHex(input);
+  const inputData = fromHex(input);
   const tiovAddress = Bech32.encode("tiov", inputData);
   const iovAddress = Bech32.encode("iov", inputData);
   return {
