@@ -26,7 +26,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@cosmwasm/bcp": "^0.8.0",
+    "@cosmwasm/bcp": "^0.8.1",
     "@iov/bcp": "^2.3.2",
     "@iov/bns": "^2.3.2",
     "@iov/crypto": "^2.3.2",

@@ -1,4 +1,4 @@
-import { CosmWasmCodec } from "@cosmwasm/bcp";
+import { BankToken, CosmWasmCodec } from "@cosmwasm/bcp";
 import { ChainId, TxCodec } from "@iov/bcp";
 import { bnsCodec } from "@iov/bns";
 import { Slip10RawIndex } from "@iov/crypto";
@@ -6,12 +6,9 @@ import { ethereumCodec } from "@iov/ethereum";
 import { HdPaths } from "@iov/keycontrol";
 import { liskCodec } from "@iov/lisk";
 
-// Cannot make readonly array because type is missing (see https://github.com/CosmWasm/cosmwasm-js/pull/180)
-// tslint:disable-next-line: readonly-array
-const bankTokens = [
+const bankTokens: readonly BankToken[] = [
   {
     fractionalDigits: 9,
-    name: "Internet Of Value Token",
     ticker: "IOV",
     denom: "niov",
   },

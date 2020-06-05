@@ -953,12 +953,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cosmwasm/bcp@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@cosmwasm/bcp/-/bcp-0.8.0.tgz#ccb163e15e0ac2fb6732d140cf9a7d258ea74f9c"
-  integrity sha512-Iayjb5RXs/MScihADCAqej9cef7eUT17Rold25vdIi0dWHxJP6wxJqfkG2/Abl9tMDFxoXs7CkQIptdI+2qsRg==
+"@cosmwasm/bcp@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@cosmwasm/bcp/-/bcp-0.8.1.tgz#66dbfbb9394547c4c4c510c5d4dad90f78afcd3b"
+  integrity sha512-VlSIBQKEMi6cleRIhzH+bmTP4NbR0HhsUDA9nii7rvTXp2wDmIrb392AWHtw9c1UijdIl/gJorKmMAdOt7gsGw==
   dependencies:
-    "@cosmwasm/sdk" "^0.8.0"
+    "@cosmwasm/sdk" "^0.8.1"
     "@iov/bcp" "^2.1.0"
     "@iov/crypto" "^2.1.0"
     "@iov/encoding" "^2.1.0"
@@ -969,10 +969,10 @@
     readonly-date "^1.0.0"
     xstream "^11.11.0"
 
-"@cosmwasm/sdk@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@cosmwasm/sdk/-/sdk-0.8.0.tgz#6409a304d227ab410fd3a1924596292efd655537"
-  integrity sha512-bgG6YDKk4/705TsTCBfiOMGyHtNBYW8KtZsTvB9Ec4KSw0pIm/mmFtQqc+EqPTbvYfbSnEtajtTHVg2Qgbihfg==
+"@cosmwasm/sdk@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@cosmwasm/sdk/-/sdk-0.8.1.tgz#5bfcd729b24cfa8e9ccd84b965b51393b6352717"
+  integrity sha512-DT5cs05rY5aYrecAi0BCJWI0VLBOAV/PPfxknOYHiBZLI1zJCYjQLW6UXsba28WwHwMuCMXniS71dowJxywW6A==
   dependencies:
     "@iov/crypto" "^2.1.0"
     "@iov/encoding" "^2.1.0"
