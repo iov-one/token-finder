@@ -1,11 +1,10 @@
 import { Address, PubkeyBundle } from "@iov/bcp";
-import { Slip10RawIndex } from "@iov/crypto";
+import { pathToString, Slip10RawIndex } from "@iov/crypto";
 import { toHex } from "@iov/encoding";
 import { Ed25519HdWallet, Secp256k1HdWallet } from "@iov/keycontrol";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { printPath } from "../bcphelpers";
 import { HdCoin } from "../settings";
 import { ellideMiddle } from "../uielements";
 import { priorities, StaticDisplay } from ".";
@@ -58,7 +57,7 @@ export async function makeEd25519HdWalletDisplay(input: string, coin: HdCoin): P
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: printPath(path),
+      path: pathToString(path),
       pubkey: identity.pubkey,
       address: address,
     });
@@ -94,7 +93,7 @@ export async function makeSecp256k1HdWalletDisplay(input: string, coin: HdCoin):
     const identity = await wallet.createIdentity(chainId, path);
     const address = codec.identityToAddress(identity);
     addresses.push({
-      path: printPath(path),
+      path: pathToString(path),
       pubkey: identity.pubkey,
       address: address,
     });
