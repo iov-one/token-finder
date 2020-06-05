@@ -7,7 +7,7 @@
   "homepage": "https://iov-one.github.io/token-finder/",
   "scripts": {
     "lint": "eslint -c .eslintrc.json --max-warnings 0 'src/**/*.ts{,x}' && tslint -t verbose --project .",
-    "lint-fix": "eslint -c .eslintrc.js 'src/**/*.ts{,x}' --fix",
+    "lint-fix": "eslint -c .eslintrc.json 'src/**/*.ts{,x}' --fix",
     "format": "prettier --write --loglevel warn \"./src/**/*.{ts,tsx}\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
