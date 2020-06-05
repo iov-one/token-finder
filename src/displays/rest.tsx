@@ -86,7 +86,7 @@ function makeIovAccountDisplayImpl(
               </tr>
               <tr>
                 <td>Balance</td>
-                <td>{balance.map(printAmount).join(", ")}</td>
+                <td>{balance.map(printAmount).join(", ") || "none"}</td>
               </tr>
               <tr>
                 <td>Names</td>
@@ -154,7 +154,7 @@ export function makeLiskAccountDisplay(input: string, network: NetworkSettings):
             </tr>
             <tr>
               <td>Balance</td>
-              <td>{balance.map(printAmount).join(", ")}</td>
+              <td>{balance.map(printAmount).join(", ") || "none"}</td>
             </tr>
           </table>
         );
