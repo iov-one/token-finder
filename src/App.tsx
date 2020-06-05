@@ -1,9 +1,8 @@
-import "./App.css";
-
 import { History } from "history";
 import React from "react";
 import { withRouter } from "react-router-dom";
 
+import "./App.css";
 import { isInteractiveDisplay, StaticDisplay } from "./displays";
 import { processInput } from "./inputprocessing";
 
